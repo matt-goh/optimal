@@ -1,8 +1,11 @@
+import { MantineProvider } from "@mantine/core";
+import { UserProvider } from "./context/UserContext";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import Sidebar from "./components/Sidebar";
+import Header from "./components/Header";
+import React from "react";
+import "@mantine/core/styles.css";
+import "./components/styles.css";
 
 export const metadata: Metadata = {
   title: "Optimal",
@@ -16,7 +19,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body>
+        <UserProvider>
+          <MantineProvider theme={{}} defaultColorScheme="light">
+            <Header />
+            <div className="flex justify-center overflow-hidden">
+              <div className="flex max-w-6xl mx-auto">
+                <aside className="w-56">
+                  <Sidebar />
+                </aside>
+                <main className="flex-grow">{children}</main>
+              </div>
+            </div>
+          </MantineProvider>
+        </UserProvider>
+      </body>
     </html>
   );
 }
