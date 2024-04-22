@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import SubmitModal from "./SubmitModal";
 import Link from "next/link";
 import "./styles.css";
 
@@ -26,30 +25,7 @@ const linksData = [
 ];
 
 export default function Sidebar() {
-  const [isModalOpen, setModalOpen] = useState(false);
   const pathname = usePathname();
-
-  const openSubmitModal = () => {
-    setModalOpen(true); // Open the modal
-
-    // Push the new state to history
-    window.history.pushState({ modalOpened: true }, "", `/submit`);
-
-    // Handle the back button when the modal is open
-    const handlePopState = (event: PopStateEvent) => {
-      if (event.state?.modalOpened) {
-        setModalOpen(false);
-      }
-    };
-
-    window.addEventListener("popstate", handlePopState);
-
-    // Clean up the event listener
-    return () => {
-      window.removeEventListener("popstate", handlePopState);
-    };
-  };
-
   return (
     <>
       {linksData.map((section, index) => (
@@ -73,13 +49,6 @@ export default function Sidebar() {
           ))}
         </React.Fragment>
       ))}
-      <button
-        onClick={openSubmitModal}
-        className="px-4 py-2 text-left text-sm text-gray-800 bg-teal-500 hover:bg-teal-600 rounded-md shadow"
-      >
-        Submit a Resource
-      </button>
-      <SubmitModal isOpen={isModalOpen} setIsOpen={setModalOpen} />
     </>
   );
 }
