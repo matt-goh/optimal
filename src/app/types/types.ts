@@ -15,8 +15,8 @@ export type TagType = string;
 export interface Resource {
     id: string;
     title: string;
-    link: string;
-    image_link?: string;
+    resource_url: string;
+    image_url?: string;
     resource_type: string;
     tags: string[];
   }

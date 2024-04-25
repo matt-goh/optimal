@@ -38,7 +38,7 @@ export default function Sidebar() {
               key={link.label}
               href={link.link}
               passHref
-              className={`block pl-9 pr-4 py-0.5 text-m font-normal relative ${
+              className={`block pl-9 pr-4 py-0.5 text-base font-normal relative ${
                 pathname === link.link
                   ? "text-teal-600 font-semibold"
                   : "text-gray-600 hover:border-gray-400"

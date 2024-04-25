@@ -23,12 +23,12 @@ export default function RootLayout({
         <UserProvider>
           <MantineProvider theme={{}} defaultColorScheme="light">
             <Header />
-            <div className="flex justify-center overflow-hidden">
-              <div className="flex max-w-6xl mx-auto">
-                <aside className="w-56">
+            <div className="flex justify-center overflow-hidden w-full">
+              <div className="flex w-3/5">
+                <aside className="w-1/5">
                   <Sidebar />
                 </aside>
-                <main className="flex-grow">{children}</main>
+                <main className="flex w-3/5">{children}</main>
               </div>
             </div>
           </MantineProvider>

@@ -13,19 +13,19 @@ function TagPage() {
   const tag = params?.tags;
   const formattedTag = formatTagForDisplay(tag);
 
-  function formatTagForDisplay(tag : string) {
+  function formatTagForDisplay(tag: string) {
     // Special cases mapping
     const specialCases: { [key: string]: string } = {
-      'javascript': 'JavaScript',
-      'html-css': 'HTML/CSS',
-      'typescript': 'TypeScript',
+      javascript: "JavaScript",
+      "html-css": "HTML/CSS",
+      typescript: "TypeScript",
     };
-  
+
     // If a special case exists, return it
     if (specialCases[tag.toLowerCase()]) {
       return specialCases[tag.toLowerCase()];
     }
-  
+
     // Otherwise, capitalize the first letter and return
     return tag.charAt(0).toUpperCase() + tag.slice(1);
   }
@@ -40,7 +40,7 @@ function TagPage() {
       const { data, error } = await supabase
         .from("resources")
         .select("*")
-        .containedBy("tags", [params.tags]); // Assuming 'tags' is a text column
+        .containedBy("tags", [formattedTag]); // Assuming 'tags' is a text column
 
       if (error) {
         console.error("Error fetching resources:", error);
@@ -58,8 +58,7 @@ function TagPage() {
   }
 
   return (
-    <div className="m-10">
-      <h1>{formattedTag} resources</h1>
+    <div className="w-full mt-1">
       {resources.length === 0 ? (
         <p>Oops! No resources found for this tag.</p>
       ) : (
