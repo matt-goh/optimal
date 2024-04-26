@@ -37,21 +37,14 @@ const AppHeader = () => {
   };
 
   return (
-    <div className="flex items-center py-3 px-4 shadow">
-      <span
-        className="text-lg font-bold text-black"
-        style={{ paddingLeft: "2rem" }}
-      >
-        Optimal
-      </span>{" "}
-      <div
-        className="absolute right-6 flex pr-6"
-      >
+    <div className="relative flex items-center py-2">
+      <span className="text-lg font-bold text-black">Optimal</span>{" "}
+      <div className="relative hidden lg:flex ml-auto space-x-6">
         {user ? (
           <>
             <button
               onClick={openSubmitModal}
-              className="px-4 py-2 text-left mx-2 text-sm text-white font-semibold bg-teal-500 hover:bg-teal-600 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+              className="text-sm text-white font-semibold rounded-full p-2 px-6 bg-teal-500 hover:bg-teal-600 rounded shadow focus:outline-none ease-linear transition-all duration-150"
             >
               Submit a Resource
             </button>
@@ -60,7 +53,7 @@ const AppHeader = () => {
         ) : (
           <button
             onClick={handleSignInClick}
-            className="bg-teal-500 text-white hover:bg-teal-600 font-semibold text-sm px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+            className="text-teal-500 hover:text-teal-600 font-semibold text-sm rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
           >
             Sign in
           </button>
