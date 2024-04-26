@@ -12,6 +12,7 @@ function TagPage() {
   const params = useParams<{ tags: string }>();
   const tag = params?.tags;
   const formattedTag = formatTagForDisplay(tag);
+  const [view, setView] = useState("compact");
 
   function formatTagForDisplay(tag: string) {
     // Special cases mapping

@@ -19,8 +19,11 @@ export interface Resource {
     image_url?: string;
     resource_type: string;
     tags: string[];
+    likes: number;
   }
-  
+
+export type LikeState = 'liked' | 'disliked' | 'none';
+
 export interface Comment {
     id: string;
     content: string;

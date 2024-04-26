@@ -30,7 +30,7 @@ export default function Sidebar() {
     <>
       {linksData.map((section, index) => (
         <React.Fragment key={index}>
-          <div className="flex w-full text-left py-2.5 text-gray-800 font-semibold text-m bg-transparent">
+          <div className="flex w-full text-left py-2.5 mt-2 text-gray-800 font-semibold text-m bg-transparent">
             <span>{section.label}</span>
           </div>
           {section.links.map((link) => (

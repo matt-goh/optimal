@@ -38,8 +38,15 @@ const AppHeader = () => {
 
   return (
     <div className="flex items-center py-3 px-4 shadow">
-      <span className="text-lg font-bold text-black ml-8">Optimal</span>
-      <div className="absolute right-0 flex pr-6">
+      <span
+        className="text-lg font-bold text-black"
+        style={{ paddingLeft: "2rem" }}
+      >
+        Optimal
+      </span>{" "}
+      <div
+        className="absolute right-6 flex pr-6"
+      >
         {user ? (
           <>
             <button
