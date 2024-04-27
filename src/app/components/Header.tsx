@@ -37,8 +37,8 @@ const AppHeader = () => {
   };
 
   return (
-    <div className="relative flex items-center py-2">
-      <span className="text-lg font-bold text-black">Optimal</span>{" "}
+    <>
+      <span className="text-lg font-bold text-black">Optimal</span>
       <div className="relative hidden lg:flex ml-auto space-x-6">
         {user ? (
           <>
@@ -53,7 +53,7 @@ const AppHeader = () => {
         ) : (
           <button
             onClick={handleSignInClick}
-            className="text-teal-500 hover:text-teal-600 font-semibold text-sm rounded shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+            className="text-white bg-teal-500 hover:bg-teal-600 font-semibold p-2 px-6 text-sm rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
           >
             Sign in
           </button>
@@ -61,7 +61,7 @@ const AppHeader = () => {
         <SubmitModal isOpen={isModalOpen} setIsOpen={setModalOpen} />
         <AuthModal opened={authModalOpened} setOpened={setAuthModalOpened} />
       </div>
-    </div>
+    </>
   );
 };
 

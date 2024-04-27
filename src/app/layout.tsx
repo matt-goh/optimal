@@ -21,20 +21,24 @@ export default function RootLayout({
         <UserProvider>
           <div className="absolute z-20 top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none"></div>
           <div className="sticky top-0 z-40 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-slate-900/10 dark:border-slate-50/[0.06] bg-white supports-backdrop-blur:bg-white/95 dark:bg-slate-900/75">
-            <div className="max-w-8xl mx-auto">
+            <div className="max-w-[90rem] mx-auto">
               <div className="border-b border-slate-900/10 lg:px-8 lg:border-0 dark:border-slate-300/10 mx-4 lg:mx-0">
+                <div className="relative flex items-center py-2">
                   <Header />
+                </div>
               </div>
             </div>
           </div>
           <div className="">
-            <div className="max-w-8xl mx-auto px-4 sm:px-6 md:px-8">
+            <div className="max-w-8xl mx-auto px-0 sm:px-6 md:px-8">
               <aside className="hidden lg:block fixed z-20 inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto w-[19rem] pb-10 pl-8 pr-6 overflow-y-auto">
                 <Sidebar />
               </aside>
               <div className="lg:pl-[19.5rem]">
-                <main className="max-w-3xl mx-auto pt-10 xl:max-w-none xl:ml-0 xl:mr-[15.5rem] xl:pr-16">
-                  {children}
+                <main className="max-w-3xl mx-auto pt-10 xl:max-w-3xl xl:ml-0 xl:mr-[15.5rem] xl:pr-16">
+                  <div className="fixed z-20 sm:w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem] md:left-[max(0px,calc(50%-20rem)) lg:left-[max(0px,calc(50%-14rem))] xl:left-[max(0px,calc(50%-24rem))] 2xl:left-[max(0px,calc(50%-27rem))]">
+                    {children}
+                  </div>
                   <div className="fixed z-20 top-[3.8125rem] bottom-0 right-[max(0px,calc(50%-45rem))] w-[19.5rem] py-10 overflow-y-auto hidden xl:block">
                     <div className="px-8">
                       <p className="">

@@ -59,7 +59,7 @@ function TagPage() {
   }
 
   return (
-    <div className="w-full mt-1">
+    <div className="relative mt-1">
       {resources.length === 0 ? (
         <p>Oops! No resources found for this tag.</p>
       ) : (

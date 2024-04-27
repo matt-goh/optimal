@@ -10,11 +10,17 @@ function classNames(...classes: string[]) {
 const ProfileDropdown = () => {
   const { setUser } = useUser();
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
     // Sign out logic
-    supabase.auth.signOut().then(() => {
-      setUser(null);
-    });
+
+    let { error } = await supabase.auth.signOut();
+    if (error) console.error("Error logging out:", error.message);
+    setUser(null);
+    // Manually clear the local storage token to remove the user session
+    localStorage.removeItem("supabase.auth.token");
+
+    // Optionally, you can also refresh the page to ensure a clean state
+    window.location.reload();
   };
 
   return (

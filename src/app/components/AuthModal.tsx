@@ -1,33 +1,108 @@
-import { Fragment, useState } from "react";
+import {
+  uniqueNamesGenerator,
+  adjectives,
+  colors,
+  animals,
+  names,
+} from "unique-names-generator";
 import { Dialog, Transition } from "@headlessui/react";
+import { Fragment, useEffect, useState } from "react";
 import { AuthModalProps } from "../types/types";
 import { supabase } from "../lib/supabase";
+import { useUser } from "../context/UserContext";
 
 const AuthModal: React.FC<AuthModalProps> = ({ opened, setOpened }) => {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [isLogin, setIsLogin] = useState(true);
+  const { setUser } = useUser();
 
   const toggleAuthMode = () => setIsLogin(!isLogin);
 
   const handleGoogleSignIn = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: {
-        queryParams: {
-          access_type: "offline", // to get a refresh token set 'access_type' to 'offline'
-          prompt: "consent", // to ensure that the refresh token is returned on every authentication
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          queryParams: {
+            access_type: "offline",
+            prompt: "consent",
+          },
         },
-      },
+      });
+      if (error) throw error;
+    } catch (error) {
+      console.error("Error with Google sign-in:", error);
+      // Handle error, possibly by showing a user-friendly message or logging out the user.
+    }
+  };
+
+  useEffect(() => {
+    const { data: listener } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (event === "SIGNED_IN" && session?.user) {
+          setUser(session.user); // Update the user context
+
+          try {
+            // Check if the user is new by attempting to retrieve their profile
+            const { data: profile, error } = await supabase
+              .from("profiles")
+              .select("user_id")
+              .eq("user_id", session.user.id)
+              .single();
+
+            if (error && error.code !== "406") throw error;
+
+            // If the profile doesn't exist, it's a new user
+            if (!profile) {
+              await handleNewUser(session.user.id);
+            }
+          } catch (error) {
+            console.error("Error checking for user profile:", error);
+            // Handle error appropriately.
+          }
+        } else if (event === "SIGNED_OUT") {
+          setUser(null);
+        }
+      }
+    );
+
+    return () => {
+      listener.subscription.unsubscribe();
+    };
+  }, []);
+
+  // Function to generate a random username
+  const generateRandomUsername = (): string => {
+    const randomName: string = uniqueNamesGenerator({
+      dictionaries: [adjectives, colors, animals, names],
+      length: 2,
+      style: "lowerCase",
     });
+    return randomName;
+  };
+
+  // Assume this function is called after user registration
+  const handleNewUser = async (userId: string) => {
+    // Generate a random username
+    const username = generateRandomUsername();
+
+    // Assign a default profile picture
+    const profilePicUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile_images/default-o-cat.jpg`;
+
+    // Update the database
+    await supabase
+      .from("profiles")
+      .update({ username, profile_pic_url: profilePicUrl })
+      .eq("user_id", userId);
   };
 
   return (
     <Transition.Root show={opened} as={Fragment}>
       <Dialog
         as="div"
-        className="fixed z-10 inset-0 overflow-y-auto"
+        className="fixed z-50 inset-0 overflow-y-auto"
         onClose={setOpened}
       >
         <div className="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
