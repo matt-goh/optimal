@@ -1,5 +1,5 @@
+import React, { Fragment, useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import React, { Fragment } from "react";
 import { supabase } from "../lib/supabase";
 import { useUser } from "../context/UserContext";
 
@@ -8,8 +8,31 @@ function classNames(...classes: string[]) {
 }
 
 const ProfileDropdown = () => {
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
+  const [profilePicUrl, setProfilePicUrl] = useState(
+    "https://icwuwhijvlesjzisktiy.supabase.co/storage/v1/object/public/profile_images/default_o_cat.jpg"
+  );
 
+  useEffect(() => {
+    // Function to fetch the user's profile picture
+    const fetchProfilePic = async () => {
+      if (user) {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("profile_pic_url")
+          .eq("user_id", user.id)
+          .single();
+
+        if (error) {
+          console.error("Error fetching profile picture:", error);
+        } else {
+          setProfilePicUrl(data.profile_pic_url);
+        }
+      }
+    };
+
+    fetchProfilePic();
+  }, [user]);
   const handleSignOut = async () => {
     // Sign out logic
 
@@ -24,9 +47,13 @@ const ProfileDropdown = () => {
   };
 
   return (
-    <Menu as="div" className="relative">
-      <Menu.Button className="w-full text-sm font-semibold text-gray-900 hover:text-teal-500 p-2 mt-[0.1rem]">
-        Profile
+    <Menu as="div" className="flex">
+      <Menu.Button className="w-full text-sm font-semibold text-gray-900 hover:text-teal-500">
+        <img
+          src={profilePicUrl}
+          alt="User"
+          className="h-10 w-10 rounded-full shadow" // You can adjust the size as needed
+        />
       </Menu.Button>
 
       <Transition
@@ -38,7 +65,7 @@ const ProfileDropdown = () => {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 ">
+        <Menu.Items className="absolute right-4 z-10 mt-12 w-44 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 ">
           <div className="py-1">
             <Menu.Item>
               {({ active }) => (

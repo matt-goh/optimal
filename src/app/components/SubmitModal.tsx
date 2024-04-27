@@ -80,7 +80,6 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     try {
       // Custom validation for tags
       if (selectedTags.length === 0) {
@@ -149,17 +148,16 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
   const uploadImage = async (file: File | null) => {
     if (file && user) {
       const filePath = `${user.id}/${Date.now()}_${file.name}`;
-
       try {
+        console.log("Uploading image...", filePath, file);
         const { data: uploadData, error: uploadError } = await supabase.storage
           .from("resource_image")
           .upload(filePath, file);
-
+        console.log("Upload data:", uploadData, "Error:", uploadError)
         if (uploadError) throw uploadError;
-
         // Return the URL of the uploaded file
         return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/resource_image/${uploadData.path}`;
-      } catch (error) {
+      } catch (error) { 
         console.error("Error during image upload and recording:", error);
         throw error;
       }

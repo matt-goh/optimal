@@ -46,16 +46,17 @@ const AuthModal: React.FC<AuthModalProps> = ({ opened, setOpened }) => {
 
           try {
             // Check if the user is new by attempting to retrieve their profile
-            const { data: profile, error } = await supabase
+            const { data: profiles, error } = await supabase
               .from("profiles")
               .select("user_id")
-              .eq("user_id", session.user.id)
-              .single();
+              .eq("user_id", session.user.id);
 
-            if (error && error.code !== "406") throw error;
+            if (error && error.code !== "PGRST116") {
+              throw error;
+            }
 
-            // If the profile doesn't exist, it's a new user
-            if (!profile) {
+            // If no profile is found, create one
+            if (profiles?.length === 0 || profiles === null) {
               await handleNewUser(session.user.id);
             }
           } catch (error) {
@@ -79,23 +80,30 @@ const AuthModal: React.FC<AuthModalProps> = ({ opened, setOpened }) => {
       dictionaries: [adjectives, colors, animals, names],
       length: 2,
       style: "lowerCase",
+      separator: "",
     });
     return randomName;
   };
 
   // Assume this function is called after user registration
   const handleNewUser = async (userId: string) => {
-    // Generate a random username
-    const username = generateRandomUsername();
+    const uniqueDigits = userId.substring(0, 4); 
+    
+    const randomUsername = generateRandomUsername();
+    const finalUsername = `${randomUsername}${uniqueDigits}`;
+    
+    const profilePicUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile_images/default_o_cat.jpg`;
 
-    // Assign a default profile picture
-    const profilePicUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile_images/default-o-cat.jpg`;
+    const { error } = await supabase.from("profiles").upsert({
+      user_id: userId,
+      username: finalUsername,
+      profile_pic_url: profilePicUrl,
+    });
 
-    // Update the database
-    await supabase
-      .from("profiles")
-      .update({ username, profile_pic_url: profilePicUrl })
-      .eq("user_id", userId);
+    if (error) {
+      console.error("Error creating profile for new user:", error);
+      // Handle error appropriately
+    }
   };
 
   return (
