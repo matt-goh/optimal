@@ -1,3 +1,5 @@
+"use client";
+
 import { SubmitModalProps, ResourceType, TagType } from "../types/types";
 import { Dialog, Transition, Listbox, Combobox } from "@headlessui/react";
 import React, { useState, Fragment, useEffect, useRef } from "react";
@@ -11,7 +13,7 @@ const resourceTypes: ResourceType[] = [
   "YouTube Tutorial",
   "Book",
   "Docs",
-  "Website",
+  "Interactive website",
   "Other",
 ];
 
@@ -105,8 +107,6 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
 
       if (error) throw error;
 
-      // Handle success
-      console.log("Submitted successfully:", data);
       toast.success("Resource submitted for review!", {
         position: "top-right",
         autoClose: 3000,
@@ -147,26 +147,20 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
   // Upload image to Supabase Storage
   const uploadImage = async (file: File | null) => {
     if (file && user) {
-      const filePath = `${user.user_metadata.full_name}/${file.name}`;
-      console.log("Uploading image...", filePath, file);
-      try {
-        const { data: uploadData, error: uploadError } = await supabase.storage
-          .from("resource_image").upload(filePath, file);
-        if (uploadError) {
-          console.error("Upload Error:", uploadError.message);
-          throw new Error(uploadError.message);
-        }
+      let filePath = `${user.user_metadata.full_name}/${file.name}`;
 
-        console.log("Upload Success:", uploadData);
-        // Return the URL of the uploaded file
-        return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/resource_image/${uploadData.path}`;
-      } catch (error) {
-        console.error("Error during image upload and recording:", error);
-        throw error;
+      let { data, error } = await supabase.storage
+        .from("resource_image")
+        .upload(filePath, file);
+      if (error) {
+        console.error("Upload Error:", error.message);
+        throw new Error(error.message);
       }
+
+      // Return the URL of the uploaded file
+      return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/resource_image/${data?.path}`;
     } else {
       console.log("No file or user information provided");
-      return null;
     }
   };
 

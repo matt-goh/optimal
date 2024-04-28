@@ -13,23 +13,6 @@ const AppHeader = () => {
 
   const openSubmitModal = () => {
     setModalOpen(true); // Open the modal
-
-    // Push the new state to history
-    window.history.pushState({ modalOpened: true }, "", `/submit`);
-
-    // Handle the back button when the modal is open
-    const handlePopState = (event: PopStateEvent) => {
-      if (event.state?.modalOpened) {
-        setModalOpen(false);
-      }
-    };
-
-    window.addEventListener("popstate", handlePopState);
-
-    // Clean up the event listener
-    return () => {
-      window.removeEventListener("popstate", handlePopState);
-    };
   };
 
   const handleSignInClick = () => {
@@ -39,7 +22,7 @@ const AppHeader = () => {
   return (
     <>
       <span className="text-lg font-bold text-black">Optimal</span>
-      <div className="relative hidden lg:flex ml-auto space-x-6">
+      <div className="relative hidden lg:flex ml-auto space-x-4">
         {user ? (
           <>
             <button

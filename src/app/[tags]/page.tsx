@@ -12,7 +12,6 @@ function TagPage() {
   const params = useParams<{ tags: string }>();
   const tag = params?.tags;
   const formattedTag = formatTagForDisplay(tag);
-  const [view, setView] = useState("compact");
 
   function formatTagForDisplay(tag: string) {
     // Special cases mapping
@@ -41,6 +40,7 @@ function TagPage() {
       const { data, error } = await supabase
         .from("resources")
         .select("*")
+        .eq("approved", true)
         .containedBy("tags", [formattedTag]); // Assuming 'tags' is a text column
 
       if (error) {
