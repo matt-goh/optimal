@@ -92,7 +92,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ opened, setOpened }) => {
     const randomUsername = generateRandomUsername();
     const finalUsername = `${randomUsername}${uniqueDigits}`;
     
-    const profilePicUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile_images/default_o_cat.jpg`;
+    const profilePicUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile_images/default/default_o_cat.jpg`;
 
     const { error } = await supabase.from("profiles").upsert({
       user_id: userId,

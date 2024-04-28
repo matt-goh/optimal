@@ -10,7 +10,7 @@ function classNames(...classes: string[]) {
 const ProfileDropdown = () => {
   const { user, setUser } = useUser();
   const [profilePicUrl, setProfilePicUrl] = useState(
-    "https://icwuwhijvlesjzisktiy.supabase.co/storage/v1/object/public/profile_images/default_o_cat.jpg"
+    "https://icwuwhijvlesjzisktiy.supabase.co/storage/v1/object/public/profile_images/default/default_o_cat.jpg"
   );
 
   useEffect(() => {

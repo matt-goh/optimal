@@ -1,5 +1,6 @@
 
 export interface UserType {
+  user_metadata: any;
   id: string;
 }
 

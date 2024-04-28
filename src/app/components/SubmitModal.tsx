@@ -147,22 +147,25 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
   // Upload image to Supabase Storage
   const uploadImage = async (file: File | null) => {
     if (file && user) {
-      const filePath = `${user.id}/${Date.now()}_${file.name}`;
+      const filePath = `${user.user_metadata.full_name}/${file.name}`;
+      console.log("Uploading image...", filePath, file);
       try {
-        console.log("Uploading image...", filePath, file);
         const { data: uploadData, error: uploadError } = await supabase.storage
-          .from("resource_image")
-          .upload(filePath, file);
-        console.log("Upload data:", uploadData, "Error:", uploadError)
-        if (uploadError) throw uploadError;
+          .from("resource_image").upload(filePath, file);
+        if (uploadError) {
+          console.error("Upload Error:", uploadError.message);
+          throw new Error(uploadError.message);
+        }
+
+        console.log("Upload Success:", uploadData);
         // Return the URL of the uploaded file
         return `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/resource_image/${uploadData.path}`;
-      } catch (error) { 
+      } catch (error) {
         console.error("Error during image upload and recording:", error);
         throw error;
       }
     } else {
-      // If no file or user is provided, return null or a default image URL
+      console.log("No file or user information provided");
       return null;
     }
   };
@@ -680,7 +683,6 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                                   name="file-upload"
                                   type="file"
                                   className="sr-only"
-                                  accept="image/png, image/jpeg"
                                   onChange={handleFileInputChange}
                                 />
                               </label>
