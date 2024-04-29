@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 
 export interface UserType {
   user_metadata: any;
@@ -23,6 +24,15 @@ export interface Resource {
     likes: number;
   }
 
+export interface ResourcesContextType {
+    resources: Resource[];
+    fetchResources: () => Promise<void>;
+  }
+  
+export interface ResourcesProviderProps {
+    children: ReactNode;
+  }
+  
 export type LikeState = 'liked' | 'disliked' | 'none';
 
 export interface Comment {
