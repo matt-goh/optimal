@@ -18,31 +18,21 @@ export const useUser = () => {
 export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
   const [user, setUser] = useState<UserType | null>(null);
 
-  const signInWithGoogle = async () => {
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          queryParams: {
-            access_type: "offline",
-            prompt: "consent",
-          },
-        },
-      });
-      if (error) throw error;
-      // The user will be set in the onAuthStateChange handler.
-    } catch (error) {
-      console.error("Error with Google sign-in:", error);
-    }
-  };
-
+  // Immediately load user from local storage on load
   useEffect(() => {
+    const storedUser = localStorage.getItem('supabase.auth.user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (event === "SIGNED_IN" && session?.user) {
+          localStorage.setItem('supabase.auth.user', JSON.stringify(session.user));
           setUser(session.user); // Set user on sign in
           checkUserProfile(session.user.id); // Check if user is new
         } else if (event === "SIGNED_OUT") {
+          localStorage.removeItem('supabase.auth.user');
           setUser(null); // Clear user on sign out
         }
       }
@@ -76,7 +66,7 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     });
     const uniqueDigits = userId.substring(0, 4);
     const finalUsername = `${randomUsername}${uniqueDigits}`;
-    const profilePicUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile_images/default/default_o_cat.jpg`;
+    const profilePicUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile_image/default/default_o_cat.jpg`;
 
     const { error } = await supabase.from("profiles").upsert({
       user_id: userId,
@@ -84,7 +74,26 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
       profile_pic_url: profilePicUrl,
     });
 
-    if (error) console.error("Error creating profile for new user:", error);
+    if (error) {
+      console.error("Error creating profile for new user:", error);
+    }
+  };
+
+  const signInWithGoogle = async () => {
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          queryParams: {
+            access_type: "offline",
+            prompt: "consent",
+          },
+        },
+      });
+      if (error) throw error;
+    } catch (error) {
+      console.error("Error with Google sign-in:", error);
+    }
   };
 
   return (
@@ -93,4 +102,3 @@ export const UserProvider: React.FC<UserProviderProps> = ({ children }) => {
     </UserContext.Provider>
   );
 };
-
