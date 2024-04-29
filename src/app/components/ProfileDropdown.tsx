@@ -47,7 +47,7 @@ const ProfileDropdown = () => {
   };
 
   return (
-    <Menu as="div" className="flex">
+    <Menu as="div" className="flex pt-0.5">
       <Menu.Button className="w-full text-sm font-semibold text-gray-900 hover:text-teal-500">
         <img
           src={profilePicUrl}
