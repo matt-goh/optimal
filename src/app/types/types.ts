@@ -69,6 +69,7 @@ export interface UserProviderProps {
   }
 
 export type UserContextType = {
-    user: UserType | null;
-    setUser: (user: UserType | null) => void;
-  };
+  user: UserType | null;
+  setUser: (user: UserType | null) => void;
+  signInWithGoogle: () => Promise<void>;
+};

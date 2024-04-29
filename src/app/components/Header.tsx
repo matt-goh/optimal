@@ -36,7 +36,7 @@ const AppHeader = () => {
         ) : (
           <button
             onClick={handleSignInClick}
-            className="text-white bg-teal-500 hover:bg-teal-600 font-semibold p-2 px-6 text-sm rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+            className="text-white bg-teal-500 hover:bg-teal-600 font-semibold p-2 px-6 my-[0.18rem] text-sm rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
           >
             Sign in
           </button>

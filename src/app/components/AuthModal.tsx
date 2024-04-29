@@ -1,14 +1,7 @@
-import {
-  uniqueNamesGenerator,
-  adjectives,
-  colors,
-  animals,
-  names,
-} from "unique-names-generator";
+
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useState } from "react";
 import { AuthModalProps } from "../types/types";
-import { supabase } from "../lib/supabase";
 import { useUser } from "../context/UserContext";
 
 const AuthModal: React.FC<AuthModalProps> = ({ opened, setOpened }) => {
@@ -16,95 +9,9 @@ const AuthModal: React.FC<AuthModalProps> = ({ opened, setOpened }) => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [isLogin, setIsLogin] = useState(true);
-  const { setUser } = useUser();
+  const { signInWithGoogle } = useUser();
 
   const toggleAuthMode = () => setIsLogin(!isLogin);
-
-  const handleGoogleSignIn = async () => {
-    try {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: "google",
-        options: {
-          queryParams: {
-            access_type: "offline",
-            prompt: "consent",
-          },
-        },
-      });
-      if (error) throw error;
-    } catch (error) {
-      console.error("Error with Google sign-in:", error);
-      // Handle error, possibly by showing a user-friendly message or logging out the user.
-    }
-  };
-
-  useEffect(() => {
-    const { data: listener } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        if (event === "SIGNED_IN" && session?.user) {
-          setUser(session.user); // Update the user context
-
-          try {
-            // Check if the user is new by attempting to retrieve their profile
-            const { data: profiles, error } = await supabase
-              .from("profiles")
-              .select("user_id")
-              .eq("user_id", session.user.id);
-
-            if (error && error.code !== "PGRST116") {
-              throw error;
-            }
-
-            // If no profile is found, create one
-            if (profiles?.length === 0 || profiles === null) {
-              await handleNewUser(session.user.id);
-            }
-          } catch (error) {
-            console.error("Error checking for user profile:", error);
-            // Handle error appropriately.
-          }
-        } else if (event === "SIGNED_OUT") {
-          setUser(null);
-        }
-      }
-    );
-
-    return () => {
-      listener.subscription.unsubscribe();
-    };
-  }, []);
-
-  // Function to generate a random username
-  const generateRandomUsername = (): string => {
-    const randomName: string = uniqueNamesGenerator({
-      dictionaries: [adjectives, colors, animals, names],
-      length: 2,
-      style: "lowerCase",
-      separator: "",
-    });
-    return randomName;
-  };
-
-  // Assume this function is called after user registration
-  const handleNewUser = async (userId: string) => {
-    const uniqueDigits = userId.substring(0, 4); 
-    
-    const randomUsername = generateRandomUsername();
-    const finalUsername = `${randomUsername}${uniqueDigits}`;
-    
-    const profilePicUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile_images/default/default_o_cat.jpg`;
-
-    const { error } = await supabase.from("profiles").upsert({
-      user_id: userId,
-      username: finalUsername,
-      profile_pic_url: profilePicUrl,
-    });
-
-    if (error) {
-      console.error("Error creating profile for new user:", error);
-      // Handle error appropriately
-    }
-  };
 
   return (
     <Transition.Root show={opened} as={Fragment}>
@@ -178,7 +85,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ opened, setOpened }) => {
                     <div className="mt-6">
                       <button
                         className="flex gap-2 justify-center items-center w-full leading-normal py-2 px-4 shadow-sm border border-gray-300 text-white rounded-md hover:bg-gray-100 focus:outline-none"
-                        onClick={handleGoogleSignIn}
+                        onClick={signInWithGoogle}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

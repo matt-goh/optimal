@@ -1,3 +1,4 @@
+
 import { UserProvider } from "./context/UserContext";
 import type { Metadata } from "next";
 import Sidebar from "./components/Sidebar";
@@ -31,7 +32,7 @@ export default function RootLayout({
           </div>
           <div className="">
             <div className="max-w-8xl mx-auto px-0 sm:px-6 md:px-8">
-              <aside className="hidden lg:block fixed z-20 inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto w-[19rem] pb-10 pl-8 pr-6 overflow-y-auto">
+              <aside className="hidden lg:block fixed z-0 inset-0 top-[3.8125rem] left-[max(0px,calc(50%-45rem))] right-auto w-[19rem] pb-10 pl-8 pr-6 overflow-y-auto">
                 <Sidebar />
               </aside>
               <main className="relative mx-auto mt-10 xl:max-w-3xl 2xl:max-w-4xl md:left-[max(0px,calc(50%-20rem)) lg:left-[max(0px,calc(50%-14rem))] xl:left-[max(0px,calc(50%-60rem))] 2xl:left-1 w-dvh h-dvh">

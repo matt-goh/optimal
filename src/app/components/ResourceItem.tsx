@@ -1,3 +1,5 @@
+"use client"
+
 // ResourceItem.tsx
 import { Resource, LikeState } from "../types/types";
 import React, { useEffect, useState } from "react";
@@ -58,7 +60,6 @@ function ResourceItem({ resource }: { resource: Resource }) {
       .from("resources")
       .update({ likes: newLikes })
       .eq("id", resource.id);
-
     if (error) {
       console.error("Error updating likes:", error);
       setLikes(likes);
@@ -164,7 +165,7 @@ function ResourceItem({ resource }: { resource: Resource }) {
     );
 
   return (
-    <div className="flex items-center bg-white border border-gray-200 rounded-lg my-3 p-4">
+    <div className="flex items-center bg-white border border-gray-200 rounded-lg mb-3 p-4">
     {/* Like & Dislike */}
       <div className="flex-col mr-3.5 text-center">
         <button
