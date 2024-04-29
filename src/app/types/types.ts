@@ -33,27 +33,12 @@ export interface ResourcesProviderProps {
     children: ReactNode;
   }
   
-export type LikeState = 'liked' | 'disliked' | 'none';
-
-export interface Comment {
-    id: string;
-    content: string;
-    upvotes: number;
-    downvotes: number;
-    resource_id: string;
-  }
-
-export interface NewSuggestion {
-    title: string;
-    link: string;
-    image_link: string;
-    resource_type: string;
-    tags: string[];
+  export interface LikeDislikeButtonsProps {
+    resourceId: string;  // Assuming the ID is a string; adjust type if necessary
+    initialLikes: number;
   }
   
-export interface Suggestion extends NewSuggestion {
-    id: string;
-  }
+  export type LikeState = 'liked' | 'disliked' | 'none';
   
 export interface AuthModalProps {
     opened: boolean;
