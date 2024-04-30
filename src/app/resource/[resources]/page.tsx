@@ -1,62 +1,68 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { supabase } from "../../lib/supabase";
-import { Resource } from "../../types/types";
 import { useParams } from "next/navigation";
+import { supabase } from "@/app/lib/supabase";
+import { Resource } from "@/app/types/types";
+import CommentsSection from "@/app/components/CommentsSection";
+import ResourceDetails from "@/app/components/ResourceDetails";
 
-function ResourcePage() {
+const ResourcePage = () => {
   const [resource, setResource] = useState<Resource | null>(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const params = useParams<{ resources: string }>();
   const { resources } = params;
-  console.log("resources", resources);
-  // Converts URL-friendly string back to original title
-  const formatTitleFromURL = (title: string) => {
-    return title.replace(/_/g, " ");
-  };
 
   useEffect(() => {
-    if (!resources) {
-      setError("Tag or resource is undefined");
-      return;
-    }
+    if (!resources) return;
 
-    const title = formatTitleFromURL(resources as string);
+    window.scrollTo(0, 0);
+    // Assuming resources is the title from the URL, replace underscores with spaces and convert to title case
+    const title = decodeURIComponent(resources).replace(/_/g, " ");
 
-    const fetchResourceDetails = async () => {
-      console.log("title", title);
-      // Fetch resource details using the title and tag
-      const { data, error } = await supabase
-        .from("resources")
-        .select("*")
-        .eq("title", title)
-        .single(); // Assuming there's a unique constraint on titles
+    const fetchResource = async () => {
+      try {
+        // Fetch the resource details
+        let { data: resourceData, error: resourceError } = await supabase
+          .from("resources")
+          .select("*")
+          .ilike("title", `%${title}%`)
+          .single();
 
-      if (error) {
-        setError("Failed to fetch resource details");
-        return;
+        if (resourceError) throw resourceError;
+
+        setResource(resourceData);
+
+      } catch (error) {
+        setError("Failed to fetch data");
+        console.error(error);
+      } finally {
+        setLoading(false);
       }
-
-      setResource(data);
     };
 
-    fetchResourceDetails();
+    fetchResource();
   }, [resources]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   if (error) {
     return <div>Error: {error}</div>;
   }
 
   if (!resource) {
-    return <div>Loading resource...</div>;
+    return <div>Resource not found</div>;
   }
 
   return (
-    <div>
-      <h1>{resource.title}</h1>
+    <div className="relative pl-[2rem]">
+      <ResourceDetails resource={resource} />
+      <CommentsSection resource={resource}/>
     </div>
   );
-}
+};
 
 export default ResourcePage;

@@ -4,11 +4,12 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { supabase } from "../lib/supabase";
 import { Resource } from "../types/types"; // Make sure this path is correct
-import ResourceItem from "../components/ResourceItem"; // Make sure this path is correct
+import ResourcePost from "../components/ResourcePost"; // Make sure this path is correct
 
 function TagPage() {
   const [resources, setResources] = useState<Resource[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
   const params = useParams<{ tags: string }>();
   const tag = params?.tags;
   const formattedTag = formatTagForDisplay(tag);
@@ -48,6 +49,7 @@ function TagPage() {
         setError("Failed to fetch resources");
       } else {
         setResources(data || []);
+        setLoading(false);
       }
     };
 
@@ -57,14 +59,17 @@ function TagPage() {
   if (error) {
     return <div>Error: {error}</div>;
   }
+  if (loading) {
+    return <div className="">Loading...</div>;
+  }
 
   return (
-    <div className="relative">
+    <div className="relative border-none">
       {resources.length === 0 ? (
         <p>Oops! No resources found for this tag.</p>
       ) : (
         resources.map((resource) => (
-          <ResourceItem key={resource.id} resource={resource} />
+          <ResourcePost key={resource.id} resource={resource} />
         ))
       )}
     </div>

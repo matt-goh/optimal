@@ -1,16 +1,19 @@
-// ResourceItem.tsx
 import Link from "next/link";
 import { Resource } from "../types/types";
 import LikeDislikeButtons from "./LikeDislikeButtons";
 import React from "react";
 
-function ResourceItem({ resource }: { resource: Resource }) {
+function ResourcePost({ resource }: { resource: Resource }) {
+  // Helper function to format resource title to a URL-safe string
   const formatTitleForURL = (title: string) => {
-    return title.replace(/\s+/g, "_").replace(/[^\w-]+/g, "");
+    return encodeURIComponent(title.replace(/\s+/g, "_").toLowerCase());
   };
 
+  const resourceCommentsUrl = `/resource/${formatTitleForURL(resource.title)}`;
+
   return (
-    <div className="flex items-center bg-white border border-gray-200 rounded-lg mb-3 p-4">
+    <div className="flex items-center relative bg-white dark:bg-transparent border border-gray-200 dark:border-zinc-700 rounded-lg mb-3 p-4 cursor-pointer dark:hover:bg-zinc-800">
+      <Link href={resourceCommentsUrl} className="absolute inset-0 z-0"></Link>
       {/* Thumbnail or Image */}
       <div className="flex-shrink-0">
         <img
@@ -18,19 +21,20 @@ function ResourceItem({ resource }: { resource: Resource }) {
           alt=""
           className="h-32 w-32 object-cover rounded-lg"
         />
-      </div>
+      </div>  
 
       {/* Content Area */}
       <div className="ml-6 flex-1">
         <h3 className="font-semibold text-md leading-tight">
           {resource.title}
         </h3>
-        <div className="mt-2 text-sm text-gray-700">
+        <div className="mt-2 text-sm text-gray-700 z-10 relative">
           <a
             href={resource.resource_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-600 hover:underline"
+            className="text-blue-600 hover:underline dark:text-sky-600"
+            onClick={(e) => e.stopPropagation()}
           >
             {resource.resource_url}
           </a>
@@ -42,12 +46,14 @@ function ResourceItem({ resource }: { resource: Resource }) {
         <div className="mt-4 flex items-center space-x-4 text-gray-600 text-xs">
           {/* Placeholder for actions like upvote, comments etc */}
           {/* Like & Dislike */}
-          <LikeDislikeButtons
-            resourceId={resource.id}
-            initialLikes={resource.likes}
-          />
-          <a
-            href="#comments"
+          <div onClick={(e) => e.preventDefault()} className="cursor-auto z-10">
+            <LikeDislikeButtons
+              resourceId={resource.id}
+              initialLikes={resource.likes}
+            />
+          </div>
+          <Link
+            href={resourceCommentsUrl}
             className="flex items-center space-x-1 hover:text-gray-900"
           >
             <svg
@@ -61,14 +67,8 @@ function ResourceItem({ resource }: { resource: Resource }) {
             >
               <path d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H7l-4 4 .01-18a2 2 0 012-2h2"></path>
             </svg>
-            <Link
-              key={resource.id}
-              href={`/${formatTitleForURL(resource.title)}`}
-              passHref
-            >
-              <span>Comments</span>
-            </Link>
-          </a>
+            <span>Comments</span>
+          </Link>
           {/* More actions here */}
         </div>
       </div>
@@ -76,7 +76,7 @@ function ResourceItem({ resource }: { resource: Resource }) {
   );
 }
 
-export default ResourceItem;
+export default ResourcePost;
 
 // Card view design:
 {

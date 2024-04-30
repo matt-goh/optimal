@@ -21,13 +21,15 @@ const AppHeader = () => {
 
   return (
     <>
-      <span className="text-lg font-bold text-black">Optimal</span>
+      <span className="text-lg font-bold text-black dark:text-zinc-200 tracking-wide">
+        Optimal
+      </span>
       <div className="relative hidden lg:flex ml-auto space-x-4">
         {user ? (
           <>
             <button
               onClick={openSubmitModal}
-              className="text-sm text-white font-semibold rounded-full p-2 px-6 bg-teal-500 hover:bg-teal-600 rounded shadow focus:outline-none ease-linear transition-all duration-150"
+              className="text-sm text-white font-semibold rounded-full p-2 px-6 bg-teal-500 hover:bg-teal-600 rounded shadow focus:outline-none ease-linear transition-all duration-150 dark:text-zinc-200 dark:bg-teal-600 dark:hover:bg-teal-700"
             >
               Submit a Resource
             </button>

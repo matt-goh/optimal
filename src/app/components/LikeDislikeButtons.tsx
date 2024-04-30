@@ -134,7 +134,9 @@ const LikeDislikeButtons: React.FC<LikeDislikeButtonsProps> = ({
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className={`icon icon-tabler icons-tabler-outline icon-tabler-heart ${likeState === "liked" ? "" : "stroke-current"}`}
+        className={`icon icon-tabler icons-tabler-outline icon-tabler-heart ${
+          likeState === "liked" ? "" : "stroke-current"
+        }`}
       >
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
@@ -142,18 +144,22 @@ const LikeDislikeButtons: React.FC<LikeDislikeButtonsProps> = ({
     );
 
   return (
-    <div className="flex items-center text-center space-x-1 rounded-full bg-gray-100">
+    <div className="flex items-center text-center space-x-1 rounded-full bg-zinc-200/50 dark:bg-zinc-600/20">
       <button
-        className="flex items-center hover:bg-rose-100 active:bg-rose-200 rounded-full p-2 text-gray-500 hover:text-rose-500"
+        className="flex items-center hover:bg-rose-100 hover:text-rose-500 active:text-rose-500 active:bg-rose-200 rounded-full p-2 text-gray-500 dark:hover:bg-zinc-600/50 dark:active:bg-zinc-600 dark:text-zinc-200"
         onClick={() => handleLikeDislike("liked")}
       >
         {likeIcon}
       </button>
-      <span className={`text-sm font-semibold ${likes == -1 ? "px-[0.45rem]" : likes == 0 ? "" : "px-2.5"}`}>
+      <span
+        className={`text-sm dark:text-zinc-200 ${
+          likes == -1 ? "px-[0.35rem]" : likes == 0 ? "" : "px-[0.525rem]"
+        }`}
+      >
         {likes == 0 ? "Like" : likes}
       </span>
       <button
-        className="flex items-center hover:text-gray-500 hover:bg-gray-200 active:bg-gray-300 rounded-full p-2"
+        className="flex items-center hover:text-amber-500 active:text-amber-500 dark:text-zinc-200 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-zinc-600/50 dark:active:bg-zinc-600 rounded-full p-2"
         onClick={() => handleLikeDislike("disliked")}
       >
         <svg
@@ -161,12 +167,14 @@ const LikeDislikeButtons: React.FC<LikeDislikeButtonsProps> = ({
           width="24"
           height="24"
           viewBox="0 0 24 24"
-          fill={likeState === "disliked" ? "#6B7280" : "none"}
-          stroke="#6B7280"
+          fill={likeState === "disliked" ? "#F59E0B" : "none"}
+          stroke="#F59E0B"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="icon icon-tabler icons-tabler-outline icon-tabler-hammer"
+          className={`icon icon-tabler icons-tabler-outline icon-tabler-hammer ${
+            likeState === "disliked" ? "text-zinc-600/50" : "stroke-current"
+          }`}
         >
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <path d="M11.414 10l-7.383 7.418a2.091 2.091 0 0 0 0 2.967a2.11 2.11 0 0 0 2.976 0l7.407 -7.385" />

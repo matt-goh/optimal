@@ -1,6 +1,7 @@
+import { redirect } from "next/navigation";
 
 const HomePage = () => {
-  return <div>Redirecting to JavaScript resources...</div>;
+  redirect("/python");
 };
 
 export default HomePage;
