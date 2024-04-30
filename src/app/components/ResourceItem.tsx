@@ -4,7 +4,7 @@ import { Resource } from "../types/types";
 import LikeDislikeButtons from "./LikeDislikeButtons";
 import React from "react";
 
-function ResourceItem({ resource, tag }: { resource: Resource, tag:string }) {
+function ResourceItem({ resource }: { resource: Resource }) {
   const formatTitleForURL = (title: string) => {
     return title.replace(/\s+/g, "_").replace(/[^\w-]+/g, "");
   };
@@ -63,7 +63,7 @@ function ResourceItem({ resource, tag }: { resource: Resource, tag:string }) {
             </svg>
             <Link
               key={resource.id}
-              href={`/${tag}/${formatTitleForURL(resource.title)}`}
+              href={`/${formatTitleForURL(resource.title)}`}
               passHref
             >
               <span>Comments</span>

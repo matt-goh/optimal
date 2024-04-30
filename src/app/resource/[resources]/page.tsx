@@ -8,17 +8,16 @@ import { useParams } from "next/navigation";
 function ResourcePage() {
   const [resource, setResource] = useState<Resource | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const params = useParams<{ tags: string; resources: string }>();
-  const { tags, resources } = params;
- console.log("tags", tags);
- console.log("resources", resources);
+  const params = useParams<{ resources: string }>();
+  const { resources } = params;
+  console.log("resources", resources);
   // Converts URL-friendly string back to original title
   const formatTitleFromURL = (title: string) => {
     return title.replace(/_/g, " ");
   };
 
   useEffect(() => {
-    if (!resources || !tags) {
+    if (!resources) {
       setError("Tag or resource is undefined");
       return;
     }
@@ -43,7 +42,7 @@ function ResourcePage() {
     };
 
     fetchResourceDetails();
-  }, [params?.tags, resources, tags]);
+  }, [resources]);
 
   if (error) {
     return <div>Error: {error}</div>;

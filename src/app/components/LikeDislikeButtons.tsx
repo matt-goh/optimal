@@ -134,7 +134,7 @@ const LikeDislikeButtons: React.FC<LikeDislikeButtonsProps> = ({
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        className="icon icon-tabler icons-tabler-outline icon-tabler-heart stroke-current"
+        className={`icon icon-tabler icons-tabler-outline icon-tabler-heart ${likeState === "liked" ? "" : "stroke-current"}`}
       >
         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
         <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" />
@@ -144,7 +144,7 @@ const LikeDislikeButtons: React.FC<LikeDislikeButtonsProps> = ({
   return (
     <div className="flex items-center text-center space-x-1 rounded-full bg-gray-100">
       <button
-        className="flex items-center hover:bg-rose-100 active:bg-rose-200 rounded-full p-2 hover:text-rose-500"
+        className="flex items-center hover:bg-rose-100 active:bg-rose-200 rounded-full p-2 text-gray-500 hover:text-rose-500"
         onClick={() => handleLikeDislike("liked")}
       >
         {likeIcon}

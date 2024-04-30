@@ -35,7 +35,6 @@ export default function Sidebar() {
           </div>
           {section.links.map((link) => (
             <Link
-              key={link.label}
               href={link.link}
               passHref
               className={`block pl-9 pr-4 py-0.5 text-base font-normal relative ${
