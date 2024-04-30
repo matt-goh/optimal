@@ -1,10 +1,13 @@
-
 // ResourceItem.tsx
+import Link from "next/link";
 import { Resource } from "../types/types";
 import LikeDislikeButtons from "./LikeDislikeButtons";
 import React from "react";
 
-function ResourceItem({ resource }: { resource: Resource }) {
+function ResourceItem({ resource, tag }: { resource: Resource, tag:string }) {
+  const formatTitleForURL = (title: string) => {
+    return title.replace(/\s+/g, "_").replace(/[^\w-]+/g, "");
+  };
 
   return (
     <div className="flex items-center bg-white border border-gray-200 rounded-lg mb-3 p-4">
@@ -58,7 +61,13 @@ function ResourceItem({ resource }: { resource: Resource }) {
             >
               <path d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H7l-4 4 .01-18a2 2 0 012-2h2"></path>
             </svg>
-            <span>Comments</span>
+            <Link
+              key={resource.id}
+              href={`/${tag}/${formatTitleForURL(resource.title)}`}
+              passHref
+            >
+              <span>Comments</span>
+            </Link>
           </a>
           {/* More actions here */}
         </div>

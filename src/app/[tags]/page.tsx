@@ -64,7 +64,7 @@ function TagPage() {
         <p>Oops! No resources found for this tag.</p>
       ) : (
         resources.map((resource) => (
-          <ResourceItem key={resource.id} resource={resource} />
+          <ResourceItem key={resource.id} resource={resource} tag={formattedTag}/>
         ))
       )}
     </div>
