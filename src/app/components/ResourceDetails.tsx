@@ -1,24 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Resource } from "../types/types";
 import LikeDislikeButtons from "./LikeDislikeButtons";
 
 const ResourceDetails = ({ resource }: { resource: Resource }) => {
   const [imageClass, setImageClass] = useState("");
+  const [backgroundImageClass, setBackgroundImageClass] = useState("");
+  const imgRef = useRef<HTMLImageElement>(null);
 
-  useEffect(() => {
-    if (resource.image_url) {
-      const img = new Image();
-      img.onload = () => {
-        // Check if the image width is greater than its height
-        if (img.width > img.height) {
-          setImageClass("sm:w-[40rem] md:w-[40rem] xl:w-[40rem] 2xl:w-[38rem]");
-        } else {
-          setImageClass("sm:w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem]");
-        }
-      };
-      img.src = resource.image_url;
+  const handleImageLoaded = () => {
+    const imgElement = imgRef.current;
+    if (imgElement) {
+      // Check if the image width is greater than its height
+      if (imgElement.naturalWidth > imgElement.naturalHeight) {
+        let newImgHeight = imgRef.current.clientHeight;
+        setImageClass(`sm:w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem] h-[320px]`);
+        setBackgroundImageClass(`h-[${newImgHeight}px]`);
+      } else {
+        setImageClass("sm:w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem] h-[460px]");
+        setBackgroundImageClass("h-[460px]");
+      } 
     }
-  }, [resource.image_url]);
+  };
 
   return (
     <>
@@ -27,16 +29,18 @@ const ResourceDetails = ({ resource }: { resource: Resource }) => {
         <p className="my-2">{resource.resource_type}</p>
         {resource.image_url && (
           <div className="my-[2rem]">
-            <div className="flex justify-center items-center w-full h-full border border-zinc-200 dark:border-zinc-700 overflow-hidden rounded-lg">
+            <div className="flex justify-center items-center w-full h-full border border-zinc-200 dark:border-zinc-800 overflow-hidden rounded-lg">
               <img
                 src={resource.image_url}
                 alt=""
-                className={`max-h-[30rem] blur-[28px] opacity-75 dark:opacity-50 rounded-lg ${imageClass}`}
+                className={`blur-[28px] opacity-75 dark:opacity-50 rounded-lg sm:w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem] ${backgroundImageClass}`}
               />
               <img
+                ref={imgRef}
                 src={resource.image_url}
                 alt={""}
-                className={`rounded-lg absolute object-contain max-h-[30rem] dark:backdrop-brightness-50 ${imageClass}`}
+                className={`rounded-lg absolute object-contain dark:backdrop-brightness-50 h-[320px] ${imageClass}`}
+                onLoad={handleImageLoaded}
               />
             </div>
           </div>

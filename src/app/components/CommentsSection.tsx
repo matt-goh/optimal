@@ -65,19 +65,19 @@ const CommentsSection: React.FC<CommentSectionProps> = ({
         <textarea
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="border rounded-[20px] dark:bg-transparent sm:w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem] p-2 pl-4 dark:border-zinc-700"
+          className="border rounded-[20px] dark:bg-transparent sm:w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem] p-2 pl-4 border-zinc-300 dark:border-zinc-700"
         />
       </div>
       <div className="flex justify-end items-center mt-2">
         <div>
           <button
-            className="mr-2 bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded"
+            className="mr-2 bg-zinc-200/75 dark:bg-zinc-600/25 rounded-full text-sm font-semibold py-2 px-3 rounded hover:bg-zinc-200 dark:hover:bg-zinc-600/50"
             onClick={() => setContent("")}
           >
             Cancel
           </button>
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="inline-flex items-end justify-center px-3 py-2 text-sm font-semibold text-zinc-100 bg-teal-500 border border-transparent rounded-full hover:bg-teal-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2"
             onClick={postComment}
           >
             Comment
