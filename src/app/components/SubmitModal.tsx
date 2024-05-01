@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const resourceTypes: ResourceType[] = [
   "Online Course",
+  "Project",
   "YouTube Tutorial",
   "Book",
   "Docs",
@@ -484,7 +485,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                         placeholder="Title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-teal-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-teal-500 caret-teal-500"
                         required
                       />
                     </div>
@@ -494,7 +495,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                         placeholder="Resource URL"
                         value={resourceUrl}
                         onChange={(e) => setResourceUrl(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-teal-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-teal-500 caret-teal-500"
                       />
                     </div>
                     {/* Resource Type Listbox */}

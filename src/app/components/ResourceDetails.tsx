@@ -28,7 +28,7 @@ const ResourceDetails = ({ resource }: { resource: Resource }) => {
         <h1 className="text-2xl font-bold">{resource.title}</h1>
         <p className="my-2">{resource.resource_type}</p>
         {resource.image_url && (
-          <div className="my-[2rem]">
+          <div className="my-[1.5rem]">
             <div className="flex justify-center items-center w-full h-full border border-zinc-200 dark:border-zinc-800 overflow-hidden rounded-lg">
               <img
                 src={resource.image_url}

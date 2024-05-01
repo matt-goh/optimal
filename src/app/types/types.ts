@@ -41,11 +41,17 @@ export interface LikeDislikeButtonsProps {
 export type LikeState = 'liked' | 'disliked' | 'none';
 
 export interface ResourceComment {
+    timeAgo: ReactNode;
     id: string;
-    userid: string;
-    resourceid: string;
+    user_id: string;
+    resource_id: string;
     content: string;
     likes: number;
+    created_at: string; // Assuming ISO 8601 string date
+    profiles: {
+    username: string;
+      profile_pic_url: string;
+  };
   };
   
 export interface CommentSectionProps {

@@ -21,7 +21,7 @@ function ResourcePost({ resource }: { resource: Resource }) {
           alt=""
           className="h-32 w-32 object-cover rounded-lg"
         />
-      </div>  
+      </div>
 
       {/* Content Area */}
       <div className="ml-6 flex-1">
@@ -55,20 +55,7 @@ function ResourcePost({ resource }: { resource: Resource }) {
           <Link
             href={resourceCommentsUrl}
             className="flex items-center space-x-1 hover:text-gray-900"
-          >
-            <svg
-              className="h-4 w-4"
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H7l-4 4 .01-18a2 2 0 012-2h2"></path>
-            </svg>
-            <span>Comments</span>
-          </Link>
+          ></Link>
           {/* More actions here */}
         </div>
       </div>
