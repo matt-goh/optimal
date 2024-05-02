@@ -62,7 +62,6 @@ const BookmarkedSidebar: React.FC = () => {
                 key={resource.id}
               >
                 <li
-                  key={resource.id}
                   className="mt-2 p-4 border rounded-lg border-gray-200 dark:border-zinc-700"
                 >
                   <div className="flex text-sm justify-between items-center">

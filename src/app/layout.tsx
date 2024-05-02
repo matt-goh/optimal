@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en" className="light">
       <body className="antialiased dark:text-zinc-200 bg-white dark:bg-zinc-900/95 transition-colors duration-500">
         <UserProvider>
-          <div className="z-0 top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none"></div>
+          <div className="z-0 top-0 inset-x-0 flex justify-center overflow-hidden pointer-events-none"><img src=""/></div>
           <div className="sticky top-0 z-50 w-full backdrop-blur flex-none transition-colors duration-500 lg:z-50 lg:border-b lg:border-zinc-900/10 dark:border-zinc-50/[0.06] bg-white/50 supports-backdrop-blur:bg-white/95 dark:bg-zinc-900/50">
             <div className="max-w-[90rem] mx-auto">
               <div className="border-b border-gray-900/10 lg:px-8 lg:border-0 dark:border-gray-300/10 mx-4 lg:mx-0">
