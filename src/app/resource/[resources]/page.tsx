@@ -46,15 +46,15 @@ const ResourcePage = () => {
   }, [resources]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center">Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="text-center">Error: {error}</div>;
   }
 
   if (!resource) {
-    return <div>Resource not found</div>;
+    return <div className="text-center">Resource not found</div>;
   }
 
   return (

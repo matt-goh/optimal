@@ -24,6 +24,9 @@ const tags: TagType[] = [
   "Java",
   "HTML/CSS",
   "TypeScript",
+  "React.js",
+  "Node.js",
+  "MongoDB",
 ];
 
 const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
@@ -34,6 +37,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
   const [tagsContainerHeight, setTagsContainerHeight] = useState(0);
   const [selectedTags, setSelectedTags] = useState<TagType[]>([]);
   const tagsContainerRef = useRef<HTMLDivElement>(null);
+  const [themeMode, setThemeMode] = useState("light");
   const [isDragOver, setIsDragOver] = useState(false);
   const [resourceUrl, setResourceUrl] = useState("");
   const [dragCounter, setDragCounter] = useState(0);
@@ -81,6 +85,13 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
       ? "mt-14"
       : "mt-2";
 
+  useEffect(() => {
+    // Check if dark mode is enabled in local storage on component mount
+    let currentTheme = localStorage.getItem("darkMode") === "true";
+    if (currentTheme) setThemeMode("dark");
+    else setThemeMode("light");
+  }, [isOpen]);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
@@ -116,7 +127,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: themeMode,
         transition: Zoom,
       });
 
@@ -139,7 +150,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "light",
+        theme: themeMode,
         transition: Zoom,
       });
     }
@@ -273,7 +284,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-lg transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-lg transform rounded-2xl bg-white dark:text-zinc-200 dark:bg-zinc-800 p-6 text-left align-middle shadow-xl transition-all">
                   <form onSubmit={handleSubmit} className="mt-2 space-y-4">
                     {/* Tags Listbox */}
                     <Combobox
@@ -292,7 +303,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                                 : selectedTags.length > 0
                                 ? "pl-4 border-none caret-transparent text-transparent"
                                 : "pl-11 border border-gray-300 caret-teal-500"
-                            } text-teal-500 flex flex-wrap gap-2 py-2 rounded-md focus:outline-none focus:border-teal-500`}
+                            } text-teal-500 flex flex-wrap gap-2 py-2 rounded-md focus:outline-none focus:border-teal-500 dark:border-zinc-700 dark:text-zinc-200 dark:bg-zinc-800 dark:focus:border-teal-700 dark:caret-teal-700`}
                             placeholder={
                               selectedTags.length > 0
                                 ? ""
@@ -415,24 +426,24 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                           >
                             <Combobox.Options static>
                               <div
-                                className={`div border shadow-lg rounded-lg p-1 focus:outline-none ${
+                                className={`div border shadow-lg rounded-lg p-1 focus:outline-none dark:border-zinc-700 dark:text-zinc-200 dark:bg-zinc-800 dark:focus:border-teal-700 overflow-auto ${
                                   open ? extraMarginClassOptions : ""
                                 }`}
                               >
                                 {filteredTags.length === 0 && query !== "" ? (
-                                  <div className="relative cursor-default select-none px-4 py-2 text-sm text-gray-700">
+                                  <div className="relative cursor-default select-none px-4 py-2 text-sm text-gray-700 dark:text-zinc-200">
                                     Nothing found.
                                   </div>
                                 ) : (
                                   filteredTags.map((tag) => (
-                                    <Combobox.Option key={tag} value={tag}>
+                                    <Combobox.Option key={tag} value={tag} className={""}>
                                       {({ active, selected }) => (
                                         <div
                                           className={`${
                                             active
-                                              ? "bg-teal-500 text-white"
+                                              ? "bg-teal-500 text-white dark:bg-teal-600"
                                               : "text-gray-900"
-                                          } cursor-pointer select-none relative text-sm rounded m-0.5 py-2 pl-4 pr-4 focus:outline-none`}
+                                          } cursor-pointer select-none relative text-sm rounded m-0.5 py-2 pl-4 pr-4 focus:outline-none dark:text-zinc-200 overflow-auto`}
                                         >
                                           {tag}
                                           {selected && (
@@ -444,7 +455,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                                                 viewBox="0 0 24 24"
                                                 fill="none"
                                                 stroke={`${
-                                                  active ? "#fff" : "#14B8A6"
+                                                  active ? "#E4E4E7" : "#14B8A6"
                                                 } `}
                                                 strokeWidth="2"
                                                 strokeLinecap="round"
@@ -470,7 +481,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                           </Transition>
                           <Dialog.Title
                             as="h3"
-                            className={`text-sm font-medium leading-6 text-gray-900 ${
+                            className={`text-sm font-medium leading-6 text-gray-900 dark:text-zinc-200 ${
                               open ? "mt-4" : extraMarginClass
                             }`}
                           >
@@ -485,7 +496,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                         placeholder="Title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-teal-500 caret-teal-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-teal-500 caret-teal-500 dark:border-zinc-700 dark:text-zinc-200 dark:bg-zinc-800 dark:focus:border-teal-700 dark:caret-teal-700"
                         required
                       />
                     </div>
@@ -495,7 +506,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                         placeholder="Resource URL"
                         value={resourceUrl}
                         onChange={(e) => setResourceUrl(e.target.value)}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-teal-500 caret-teal-500"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-teal-500 caret-teal-500 dark:border-zinc-700 dark:text-zinc-200 dark:bg-zinc-800 dark:focus:border-teal-700 dark:caret-teal-700"
                       />
                     </div>
                     {/* Resource Type Listbox */}
@@ -505,12 +516,12 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                     >
                       {({ open }) => (
                         <>
-                          <Listbox.Label className="block text-sm font-medium text-gray-700">
+                          <Listbox.Label className="block text-sm font-medium text-gray-700 dark:text-zinc-200">
                             Resource Type
                           </Listbox.Label>
-                          <div className="mt-1 relative">
-                            <Listbox.Button className="w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm bg-white text-left focus:border-teal-500">
-                              <span className="block truncate">
+                          <div className="mt-1 relative dark:border-zinc-700 dark:text-zinc-200 dark:bg-zinc-800 dark:focus:border-teal-700">
+                            <Listbox.Button className="w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm bg-white text-left focus:border-teal-500 dark:border-zinc-700 dark:text-zinc-200 dark:bg-zinc-800 dark:focus:border-teal-700">
+                              <span className="block truncate dark:border-zinc-700 dark:text-zinc-200 dark:bg-zinc-800 dark:focus:border-teal-700">
                                 {selectedResourceType}
                               </span>
                               <span className="absolute inset-y-0 right-0 flex items-center pr-4">
@@ -545,17 +556,17 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                             >
                               <Listbox.Options
                                 static
-                                className="absolute z-10 w-full p-1 mt-1 bg-white shadow-lg max-h-60 rounded-lg text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+                                className="absolute z-10 w-full p-1 mt-1 border bg-white max-h-60 rounded-lg text-base overflow-auto focus:outline-none sm:text-sm dark:border-zinc-700 dark:text-zinc-200 dark:bg-zinc-800"
                               >
                                 {resourceTypes.map((type) => (
                                   <Listbox.Option key={type} value={type}>
                                     {({ active, selected }) => (
                                       <div
-                                        className={`cursor-pointer text-sm rounded m-0.5 select-none relative py-2 pl-4 pr-4 focus:outline-none 
+                                        className={`dark:border-zinc-700 dark:text-zinc-200 dark:focus:border-teal-700 cursor-pointer text-sm rounded m-0.5 select-none relative py-2 pl-4 pr-4 focus:outline-none 
                                       ${selected ? "font-semibold" : ""}
                                       ${
                                         active
-                                          ? "bg-teal-500 text-white"
+                                          ? "bg-teal-500 text-white dark:bg-teal-600 dark:text-zinc-200"
                                           : "text-gray-900"
                                       }`}
                                       >
@@ -569,7 +580,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                                               viewBox="0 0 24 24"
                                               fill="none"
                                               stroke={`${
-                                                active ? "#fff" : "#14B8A6"
+                                                active ? "#E4E4E7" : "#14B8A6"
                                               } `}
                                               strokeWidth="2"
                                               strokeLinecap="round"
@@ -598,7 +609,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                     <div className="mt-4">
                       <label
                         htmlFor="cover-photo"
-                        className="block text-sm font-medium leading-6 text-gray-900"
+                        className="block text-sm font-medium leading-6 text-gray-900 dark:text-zinc-200"
                       >
                         Cover photo
                       </label>
@@ -634,10 +645,10 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                         </div>
                       ) : (
                         <div
-                          className={`mt-2 flex justify-center items-center rounded-md border  ${
+                          className={`mt-2 flex justify-center items-center rounded-md border ${
                             isDragOver
-                              ? "border-teal-500"
-                              : "border-gray-900/25 border-dashed"
+                              ? "border-teal-500 dark:border-teal-600"
+                              : "border-gray-900/25 border-dashed dark:border-zinc-700"
                           } px-6 py-8`}
                           onDragOver={handleDragOver}
                           onDrop={handleDrop}
@@ -655,7 +666,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                               strokeWidth="2"
                               strokeLinecap="round"
                               strokeLinejoin="round"
-                              className="icon inline icon-tabler icons-tabler-outline icon-tabler-photo"
+                              className="icon inline icon-tabler icons-tabler-outline icon-tabler-photo stroke-current text-teal-500 dark:text-teal-600"
                             >
                               <path
                                 stroke="none"
@@ -667,12 +678,12 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                               <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l5 5" />
                               <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0l3 3" />
                             </svg>
-                            <div className="mt-4 flex text-sm leading-6 text-gray-600">
+                            <div className="mt-4 flex text-sm leading-6 text-gray-600 dark:text-gray-500">
                               <label
                                 htmlFor="file-upload"
-                                className="relative cursor-pointer rounded-md bg-white font-semibold text-teal-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-teal-600 focus-within:ring-offset-2 hover:text-teal-600"
+                                className="relative cursor-pointer rounded-md bg-white font-semibold text-teal-500 focus-within:outline-none focus-within:ring-teal-600 focus-within:ring-offset-2 hover:text-teal-600 dark:border-zinc-700 dark:bg-zinc-800 dark:focus:border-teal-700"
                               >
-                                <span>Upload a photo</span>
+                                <span>Upload here</span>
                                 <input
                                   id="file-upload"
                                   name="file-upload"
@@ -691,7 +702,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                     <div className="mt-4 flex justify-end">
                       <button
                         type="submit"
-                        className="inline-flex items-end justify-center px-6 py-2 text-base font-semibold text-white bg-teal-500 border border-transparent rounded-full hover:bg-teal-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2"
+                        className="inline-flex items-end justify-center px-6 py-2 text-base font-semibold text-white bg-teal-500 dark:bg-teal-600 dark:text-zinc-200 dark:hover:bg-teal-700 border border-transparent rounded-full hover:bg-teal-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2"
                       >
                         Submit
                       </button>

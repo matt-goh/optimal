@@ -5,6 +5,7 @@ import { useUser } from "../context/UserContext";
 import ProfileDropdown from "./ProfileDropdown";
 import SubmitModal from "./SubmitModal";
 import AuthModal from "./AuthModal";
+import Link from "next/link";
 
 const AppHeader = () => {
   const [authModalOpened, setAuthModalOpened] = useState(false);
@@ -21,9 +22,11 @@ const AppHeader = () => {
 
   return (
     <>
-      <span className="text-lg font-bold text-black dark:text-zinc-200 tracking-wide">
-        Optimal
-      </span>
+      <Link href={"/"}>
+        <span className="text-lg font-bold text-black dark:text-zinc-200 tracking-wide">
+          Optimal
+        </span>
+      </Link>
       <div className="relative hidden lg:flex ml-auto space-x-4">
         {user ? (
           <>

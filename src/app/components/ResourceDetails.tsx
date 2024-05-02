@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Resource } from "../types/types";
 import LikeDislikeButtons from "./LikeDislikeButtons";
+import BookmarkButton from "./BookmarkButton";
+import ShareButton from "./ShareButton";
+import Link from "next/link";
 
 const ResourceDetails = ({ resource }: { resource: Resource }) => {
   const [imageClass, setImageClass] = useState("");
@@ -13,19 +16,25 @@ const ResourceDetails = ({ resource }: { resource: Resource }) => {
       // Check if the image width is greater than its height
       if (imgElement.naturalWidth > imgElement.naturalHeight) {
         let newImgHeight = imgRef.current.clientHeight;
-        setImageClass(`sm:w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem] h-[320px]`);
+        setImageClass(
+          `sm:w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem] h-[320px]`
+        );
         setBackgroundImageClass(`h-[${newImgHeight}px]`);
       } else {
-        setImageClass("sm:w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem] h-[460px]");
+        setImageClass(
+          "sm:w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem] h-[460px]"
+        );
         setBackgroundImageClass("h-[460px]");
-      } 
+      }
     }
   };
 
   return (
     <>
       <div className="relative bg-white dark:bg-transparent justify-center flex-col">
-        <h1 className="text-2xl font-bold">{resource.title}</h1>
+        <Link href={resource.resource_url}>
+          <h1 className="text-2xl font-bold">{resource.title}</h1>
+        </Link>
         <p className="my-2">{resource.resource_type}</p>
         {resource.image_url && (
           <div className="my-[1.5rem]">
@@ -46,11 +55,15 @@ const ResourceDetails = ({ resource }: { resource: Resource }) => {
           </div>
         )}
       </div>
-      <div className="relative flex">
+      <div className="relative flex justify-between">
         <LikeDislikeButtons
           resourceId={resource.id}
           initialLikes={resource.likes}
         />
+        <div>
+          <BookmarkButton resourceId={resource.id} />
+          <ShareButton />
+        </div>
       </div>
     </>
   );

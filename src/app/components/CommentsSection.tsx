@@ -35,9 +35,7 @@ const CommentsSection: React.FC<CommentSectionProps> = ({
       } else {
         const transformedData = data.map((comment) => ({
           ...comment,
-          profiles: comment.profiles
-            ? comment.profiles
-            : {
+          profiles: comment.profiles ? comment.profiles : {
                 username: "Anonymous",
                 profile_pic_url:
                   "https://icwuwhijvlesjzisktiy.supabase.co/storage/v1/object/public/profile_images/default/default_o_cat.jpg",
@@ -102,7 +100,7 @@ const CommentsSection: React.FC<CommentSectionProps> = ({
       <div className="relative flex mt-4">
         {!isCommenting ? (
           <button
-            className="text-start text-sm text-zinc-500/75 border rounded-[20px] dark:bg-transparent sm:w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem] p-2 py-3 pl-4 border-zinc-300 dark:border-zinc-700 cursor-text"
+            className="text-start text-sm text-zinc-500/75 border rounded-[20px] dark:bg-transparent w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem] p-2 py-3 pl-4 border-zinc-300 dark:border-zinc-700 cursor-text"
             onClick={() => setIsCommenting(true)}
           >
             Add a comment
@@ -112,7 +110,7 @@ const CommentsSection: React.FC<CommentSectionProps> = ({
             ref={textareaRef}
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="flex-wrap border rounded-[20px] dark:bg-transparent text-sm sm:w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem] p-2 pl-4 border-zinc-300 dark:border-zinc-700 overflow-y-auto resize-y focus:ring-0 focus:outline-none focus:border-teal-500 caret-teal-500"
+            className="flex-wrap border rounded-[20px] dark:bg-transparent text-sm w-[38rem] md:w-[40rem] xl:w-[45rem] 2xl:w-[50rem] p-2 pl-4 border-zinc-300 dark:border-zinc-700 overflow-y-auto resize-y focus:ring-0 focus:outline-none focus:border-teal-500 dark:focus:border-teal-700 caret-teal-500"
           />
         )}
       </div>
@@ -128,7 +126,7 @@ const CommentsSection: React.FC<CommentSectionProps> = ({
             Cancel
           </button>
           <button
-            className="px-3 py-2 text-sm font-semibold text-zinc-100 bg-teal-500 rounded-full hover:bg-teal-600 focus:outline-none"
+            className="px-3 py-2 text-sm font-semibold text-zinc-100 bg-teal-500 rounded-full hover:bg-teal-600 dark:bg-teal-600 dark:hover:bg-teal-700 focus:outline-none"
             onClick={() => {
               postComment();
               setIsCommenting(false);

@@ -1,4 +1,3 @@
-// LikeDislikeButtons.js
 import { LikeDislikeButtonsProps, LikeState } from "../types/types";
 import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
@@ -12,95 +11,105 @@ const LikeDislikeButtons: React.FC<LikeDislikeButtonsProps> = ({
   const [likeState, setLikeState] = useState<LikeState>("none");
   const { user } = useUser();
 
-  const updateLikesInDatabase = async (newLikes: number) => {
-    setLikes(newLikes); // Optimistic UI update
-    const { error } = await supabase
-      .from("resources")
-      .update({ likes: newLikes })
-      .eq("id", resourceId);
+  useEffect(() => {
+    fetchUserInteraction();
+  }, [user, resourceId]);
 
-    if (error) {
-      console.error("Error updating likes:", error);
-      setLikes(likes - newLikes); // Revert to old likes on error
-    }
-  };
+  const fetchUserInteraction = async () => {
+    if (user) {
+      const { data, error } = await supabase
+        .from("user_actions")
+        .select("id, action")
+        .eq("user_id", user.id)
+        .eq("resource_id", resourceId);
 
-  const updateUserInteraction = async (action: LikeState) => {
-    if (!user) return;
-
-    const interactionPayload = {
-      user_id: user.id,
-      resource_id: resourceId,
-      action: action,
-    };
-
-    const { data, error } = await supabase
-      .from("user_likes")
-      .select("*")
-      .eq("user_id", user.id)
-      .eq("resource_id", resourceId);
-
-    if (data && data.length > 0) {
-      await supabase
-        .from("user_likes")
-        .update(interactionPayload)
-        .match({ user_id: user.id, resource_id: resourceId });
-    } else {
-      await supabase.from("user_likes").insert([interactionPayload]);
-    }
-
-    if (error) {
-      console.error("Error updating interaction:", error);
+      if (error) {
+        console.error("Error fetching interaction:", error);
+      } else {
+        const currentAction = data.find(
+          (d) => d.action === "liked" || d.action === "disliked"
+        );
+        setLikeState(currentAction ? currentAction.action : "none");
+      }
     }
   };
 
   const handleLikeDislike = async (action: LikeState) => {
-    let newLikes = likes;
-    let newAction: LikeState = action;
+    if (!user) return;
 
-    // User is toggling off their like/dislike
-    if (likeState === action) {
-      newAction = "none";
-      newLikes += likeState === "liked" ? -1 : 1;
-    } else {
-      // Switching from like to dislike or vice versa
-      if (likeState === "liked" && action === "disliked") {
-        newLikes -= 2; // Removing like and adding dislike
-      } else if (likeState === "disliked" && action === "liked") {
-        newLikes += 2; // Removing dislike and adding like
-      } else {
-        // Adding a like or dislike for the first time
-        newLikes += action === "liked" ? 1 : -1;
-      }
+    const currentAction = likeState;
+    const isTogglingOff = action === currentAction;
+    const newAction = isTogglingOff ? "none" : action;
+
+    const { data, error } = await supabase
+      .from("user_actions")
+      .select("id, action")
+      .eq("user_id", user.id)
+      .eq("resource_id", resourceId);
+
+    if (error) {
+      console.error("Error fetching user actions:", error);
+      return;
     }
 
-    setLikes(newLikes); // Optimistic UI update
+    const existingAction = data.find(
+      (d) => d.action === "liked" || d.action === "disliked"
+    );
+    if (existingAction) {
+      if (isTogglingOff) {
+        await supabase
+          .from("user_actions")
+          .delete()
+          .match({ id: existingAction.id });
+      } else {
+        await supabase
+          .from("user_actions")
+          .update({ action: newAction })
+          .match({ id: existingAction.id });
+      }
+    } else if (!isTogglingOff) {
+      await supabase
+        .from("user_actions")
+        .insert([
+          { user_id: user.id, resource_id: resourceId, action: newAction },
+        ]);
+    }
+
+    const newLikes = calculateNewLikes(likes, currentAction, newAction);
+    await updateLikesInDatabase(resourceId, newLikes);
+    setLikes(newLikes);
     setLikeState(newAction);
-    await updateLikesInDatabase(newLikes);
-    await updateUserInteraction(newAction);
   };
 
-  useEffect(() => {
-    const fetchUserInteraction = async () => {
-      if (user) {
-        const { data, error } = await supabase
-          .from("user_likes")
-          .select("action")
-          .eq("user_id", user.id)
-          .eq("resource_id", resourceId);
+  const calculateNewLikes = (
+    currentLikes: number,
+    currentAction: string,
+    newAction: string
+  ) => {
+    switch (currentAction) {
+      case "liked":
+        return newAction === "disliked" ? currentLikes - 2 : currentLikes - 1;
+      case "disliked":
+        return newAction === "liked" ? currentLikes + 2 : currentLikes + 1;
+      default:
+        return newAction === "liked"
+          ? currentLikes + 1
+          : newAction === "disliked"
+          ? currentLikes - 1
+          : currentLikes;
+    }
+  };
 
-        if (error) {
-          console.error("Error fetching interaction:", error);
-        } else if (data && data.length > 0) {
-          setLikeState(data[0].action);
-        } else {
-          setLikeState("none");
-        }
-      }
-    };
-
-    fetchUserInteraction();
-  }, [user, resourceId]);
+  const updateLikesInDatabase = async (
+    resourceId: string,
+    newLikes: number
+  ) => {
+    const { error } = await supabase
+      .from("resources")
+      .update({ likes: newLikes })
+      .eq("id", resourceId);
+    if (error) console.error("Failed to update likes in the database:", error);
+  };
 
   // Determine which icon to display
   const likeIcon =
@@ -146,20 +155,20 @@ const LikeDislikeButtons: React.FC<LikeDislikeButtonsProps> = ({
   return (
     <div className="flex items-center text-center space-x-1 rounded-full bg-zinc-200/50 dark:bg-zinc-600/20">
       <button
-        className="flex items-center hover:bg-rose-100 hover:text-rose-500 active:text-rose-500 active:bg-rose-200 rounded-full p-2 text-gray-500 dark:hover:bg-zinc-600/50 dark:active:bg-zinc-600 dark:text-zinc-200"
+        className="flex items-center hover:bg-rose-100 hover:text-rose-500 active:text-rose-500 active:bg-rose-200 rounded-full p-2 text-gray-500 dark:hover:bg-zinc-600/50 dark:active:bg-zinc-600 dark:text-zinc-300/75"
         onClick={() => handleLikeDislike("liked")}
       >
         {likeIcon}
       </button>
       <span
-        className={`text-sm dark:text-zinc-200 ${
+        className={`text-sm dark:text-zinc-300/75 ${
           likes == -1 ? "px-[0.35rem]" : likes == 0 ? "" : "px-[0.525rem]"
         }`}
       >
         {likes == 0 ? "Like" : likes}
       </span>
       <button
-        className="flex items-center hover:text-amber-500 active:text-amber-500 dark:text-zinc-200 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-zinc-600/50 dark:active:bg-zinc-600 rounded-full p-2"
+        className="flex items-center hover:text-amber-500 active:text-amber-500 dark:text-zinc-300/75 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-zinc-600/50 dark:active:bg-zinc-600 rounded-full p-2"
         onClick={() => handleLikeDislike("disliked")}
       >
         <svg

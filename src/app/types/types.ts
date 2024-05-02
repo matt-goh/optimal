@@ -22,6 +22,7 @@ export interface Resource {
     resource_type: string;
     tags: string[];
     likes: number;
+    created_at: string;
   }
 
 export interface ResourcesContextType {
@@ -54,6 +55,10 @@ export interface ResourceComment {
   };
   };
   
+export interface BookmarkButtonProps {
+  resourceId: string;
+}
+
 export interface CommentSectionProps {
     resource: Resource;
   };

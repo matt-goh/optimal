@@ -18,8 +18,12 @@ function TagPage() {
     // Special cases mapping
     const specialCases: { [key: string]: string } = {
       javascript: "JavaScript",
+      csharp: "C#",
       "html-css": "HTML/CSS",
       typescript: "TypeScript",
+      mysql: "MySQL",
+      postgresql: "PostgreSQL",
+      mongodb: "MongoDB",
     };
 
     // If a special case exists, return it
@@ -42,8 +46,7 @@ function TagPage() {
         .from("resources")
         .select("*")
         .eq("approved", true)
-        .containedBy("tags", [formattedTag]); // Assuming 'tags' is a text column
-
+        .contains("tags", [formattedTag]); // Assuming 'tags' is a text column
       if (error) {
         console.error("Error fetching resources:", error);
         setError("Failed to fetch resources");
@@ -57,16 +60,16 @@ function TagPage() {
   }, [params?.tags]);
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return <div className="text-center">Error: {error}</div>;
   }
   if (loading) {
-    return <div className="">Loading...</div>;
+    return <div className="text-center">Loading...</div>;
   }
 
   return (
     <div className="relative border-none">
       {resources.length === 0 ? (
-        <p>Oops! No resources found for this tag.</p>
+        <p className="text-center">Oops! No resources found for this tag.</p>
       ) : (
         resources.map((resource) => (
           <ResourcePost key={resource.id} resource={resource} />

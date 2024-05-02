@@ -2,6 +2,8 @@ import Link from "next/link";
 import { Resource } from "../types/types";
 import LikeDislikeButtons from "./LikeDislikeButtons";
 import React from "react";
+import BookmarkButton from "./BookmarkButton";
+import ShareButton from "./ShareButton";
 
 function ResourcePost({ resource }: { resource: Resource }) {
   // Helper function to format resource title to a URL-safe string
@@ -43,7 +45,7 @@ function ResourcePost({ resource }: { resource: Resource }) {
           Tags: {resource.tags.join(", ")}
         </div>
 
-        <div className="mt-4 flex items-center space-x-4 text-gray-600 text-xs">
+        <div className="mt-4 flex justify-between items-center space-x-4 text-gray-600 text-xs">
           {/* Placeholder for actions like upvote, comments etc */}
           {/* Like & Dislike */}
           <div onClick={(e) => e.preventDefault()} className="cursor-auto z-10">
@@ -52,11 +54,10 @@ function ResourcePost({ resource }: { resource: Resource }) {
               initialLikes={resource.likes}
             />
           </div>
-          <Link
-            href={resourceCommentsUrl}
-            className="flex items-center space-x-1 hover:text-gray-900"
-          ></Link>
-          {/* More actions here */}
+          <div className="flex items-center z-10">
+            <BookmarkButton resourceId={resource.id} />
+            <ShareButton />
+          </div>
         </div>
       </div>
     </div>
