@@ -20,6 +20,7 @@ const BookmarkedSidebar: React.FC = () => {
     if (user) {
       fetchBookmarkedResources();
     }
+    setLoading(false);
   }, [user]);
 
   const fetchBookmarkedResources = async () => {
