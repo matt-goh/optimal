@@ -30,14 +30,14 @@ export default function Sidebar() {
                   link.subLabel ? "text-sm pointer-events-none mt-3 mb-2.5" : ""
                 } my-1`}
               >
-                <span className={`${link.subLabel ? "" : "mr-2"}`}>
+                <span className={`${link.subLabel ? "" : "mr-2"} items-center flex`}>
                   {link.icon}
                 </span>
                 <span
                   className={`${
                     link.subLabel
                       ? "border rounded-lg px-2 py-1 border-zinc-700"
-                      : ""
+                      : "pb-[0.10rem]"
                   }`}
                 >
                   {link.label}

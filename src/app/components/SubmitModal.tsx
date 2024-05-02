@@ -22,11 +22,39 @@ const tags: TagType[] = [
   "JavaScript",
   "Python",
   "Java",
+  "C",
+  "C++",
+  "C#",
+  "Go",
+  "Rust",
+  "Ruby",
   "HTML/CSS",
   "TypeScript",
+  "php",
   "React.js",
+  "Angular",
+  "Vue.js",
+  "Next.js",
+  "jQuery",
   "Node.js",
+  "Express.js",
+  "Django",
+  "MySQL",
+  "PostgreSQL",
   "MongoDB",
+  "React Native",
+  "Flutter",
+  "Kotlin",
+  "AWS",
+  "Azure",
+  "Google Cloud",
+  "Docker",
+  "Firebase",
+  "Supabase",
+  "Git & GitHub",
+  "TensorFlow",
+  "PyTorch",
+  "Programming",
 ];
 
 const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
@@ -426,7 +454,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                           >
                             <Combobox.Options static>
                               <div
-                                className={`div border shadow-lg rounded-lg p-1 focus:outline-none dark:border-zinc-700 dark:text-zinc-200 dark:bg-zinc-800 dark:focus:border-teal-700 overflow-auto ${
+                                className={`div border shadow-lg rounded-lg p-1 focus:outline-none dark:border-zinc-700 dark:text-zinc-200 dark:bg-zinc-800 dark:focus:border-teal-700 overflow-auto max-h-60  scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thin dark:scrollbar-thumb-zinc-700 dark:scrollbar-track-transparent ${
                                   open ? extraMarginClassOptions : ""
                                 }`}
                               >
@@ -436,7 +464,11 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                                   </div>
                                 ) : (
                                   filteredTags.map((tag) => (
-                                    <Combobox.Option key={tag} value={tag} className={""}>
+                                    <Combobox.Option
+                                      key={tag}
+                                      value={tag}
+                                      className={""}
+                                    >
                                       {({ active, selected }) => (
                                         <div
                                           className={`${

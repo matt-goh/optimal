@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import React from "react";
 import "./components/styles.css";
 import BookmarkedSidebar from "./components/BookmarkedSidebar";
+import "./components/styles.css";
 
 export const metadata: Metadata = {
   title: "Optimal",
@@ -32,7 +33,7 @@ export default function RootLayout({
           </div>
           <>
             <div className="max-w-8xl mx-auto px-0 sm:px-6 md:px-8">
-              <aside className="hidden lg:block fixed z-0 inset-0 top-[3.8125rem] mt-10 left-[max(0px,calc(50%-45rem))] right-auto w-[17rem] pb-10 pl-8 pr-6 overflow-y-auto">
+              <aside className="hidden lg:block fixed z-0 inset-0 top-[3.8125rem] mt-10 left-[max(0px,calc(50%-45rem))] right-auto w-[17rem] pb-10 pl-8 pr-6 overflow-y-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-thin dark:scrollbar-thumb-zinc-700 dark:scrollbar-track-transparent">
                 <Sidebar />
               </aside>
               <main className="relative mx-auto mt-10 xl:max-w-3xl 2xl:max-w-4xl md:left-[max(0px,calc(50%-20rem)) lg:left-[max(0px,calc(50%-14rem))] xl:left-[max(0px,calc(50%-60rem))] 2xl:left-[3rem] w-dvh h-dvh ">

@@ -59,6 +59,7 @@ const BookmarkedSidebar: React.FC = () => {
               <a
                 href={`/resource/${resource.title}`}
                 className="dark:hover:text-zinc-300 hover:text-black-900"
+                key={resource.id}
               >
                 <li
                   key={resource.id}
