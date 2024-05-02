@@ -52,18 +52,18 @@ const BookmarkedSidebar: React.FC = () => {
   return (
     <aside className="w-full px-4">
       <div>
-        <h2 className="text-lg font-semibold dark:text-zinc-200">Bookmarked Resources</h2>
+        <h2 className="text-lg font-semibold dark:text-zinc-200">
+          Bookmarked Resources
+        </h2>
         {bookmarkedResources.length > 0 ? (
           <ul className="mt-4">
             {bookmarkedResources.map((resource) => (
               <a
+                key={resource.id}
                 href={`/resource/${resource.title}`}
                 className="dark:hover:text-zinc-300 hover:text-black-900"
-                key={resource.id}
               >
-                <li
-                  className="mt-2 p-4 border rounded-lg border-gray-200 dark:border-zinc-700"
-                >
+                <li className="mt-2 p-4 border rounded-lg border-gray-200 dark:border-zinc-700">
                   <div className="flex text-sm justify-between items-center">
                     <div className="flex-col pr-4">
                       <span className="hover:underline">{resource.title}</span>
