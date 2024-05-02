@@ -63,7 +63,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   const [resourceImage, setResourceImage] = useState<File | null>(null);
   const [tagsContainerHeight, setTagsContainerHeight] = useState(0);
-  const [selectedTags, setSelectedTags] = useState<TagType[]>([]);
+  const [selectedTags, setSelectedTags] = useState<TagType[]>([tags[0]]);
   const tagsContainerRef = useRef<HTMLDivElement>(null);
   const [themeMode, setThemeMode] = useState("light");
   const [isDragOver, setIsDragOver] = useState(false);
@@ -318,7 +318,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                     <Combobox
                       as="div"
                       value={selectedTags}
-                      onChange={setSelectedTags}
+                      onChange={(e) => setSelectedTags(e)}
                       multiple
                     >
                       {({ open }: { open: boolean }) => (
