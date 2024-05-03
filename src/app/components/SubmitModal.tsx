@@ -63,7 +63,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
   const [resourceImage, setResourceImage] = useState<File | null>(null);
   const [tagsContainerHeight, setTagsContainerHeight] = useState(0);
-  const [selectedTags, setSelectedTags] = useState<TagType[]>([tags[0]]);
+  const [selectedTags, setSelectedTags] = useState<TagType[]>([]);
   const tagsContainerRef = useRef<HTMLDivElement>(null);
   const [themeMode, setThemeMode] = useState("light");
   const [isDragOver, setIsDragOver] = useState(false);
@@ -654,7 +654,7 @@ const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
                           />
                           <button
                             type="button"
-                            className="absolute bg-slate-100/5 text-red-400 hover:text-red-500 top-2 right-2 p-1 rounded-lg"
+                            className="absolute hover:bg-slate-100/5 text-red-400 hover:text-red-500 top-2 right-2 p-1 rounded-lg"
                             onClick={clearImage}
                           >
                             <svg

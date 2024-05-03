@@ -119,7 +119,7 @@ export const linksData = [
           </svg>
         ),
         label: "C++",
-        link: "/c++",
+        link: "/cpp",
       },
       {
         icon: (

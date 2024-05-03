@@ -24,6 +24,7 @@ function TagPage() {
       mysql: "MySQL",
       postgresql: "PostgreSQL",
       mongodb: "MongoDB",
+      cpp: "C++",
     };
 
     // If a special case exists, return it
