@@ -947,8 +947,8 @@ export const linksData = [
         icon: (
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
+            width="22"
+            height="22"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -964,8 +964,57 @@ export const linksData = [
             <path d="M15 16v4" />
           </svg>
         ),
-        label: "computerscience",
+        label: "Computer Science",
         link: "/computerscience",
+      },
+      {
+        icon: (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="icon icon-tabler icons-tabler-outline icon-tabler-building-factory-2"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 21h18" />
+            <path d="M5 21v-12l5 4v-4l5 4h4" />
+            <path d="M19 21v-8l-1.436 -9.574a.5 .5 0 0 0 -.495 -.426h-1.145a.5 .5 0 0 0 -.494 .418l-1.43 8.582" />
+            <path d="M9 17h1" />
+            <path d="M14 17h1" />
+          </svg>
+        ),
+        label: "Refactoring",
+        link: "/refactoring",
+      },
+      {
+        icon: (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="icon icon-tabler icons-tabler-outline icon-tabler-brush"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M3 21v-4a4 4 0 1 1 4 4h-4" />
+            <path d="M21 3a16 16 0 0 0 -12.8 10.2" />
+            <path d="M21 3a16 16 0 0 1 -10.2 12.8" />
+            <path d="M10.6 9a9 9 0 0 1 4.4 4.4" />
+          </svg>
+        ),
+        label: "Design patterns",
+        link: "/designpatterns",
       },
     ],
   },
