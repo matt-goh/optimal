@@ -55,6 +55,8 @@ const tags: TagType[] = [
   "TensorFlow",
   "PyTorch",
   "Programming",
+  "Refactoring",
+  "Design patterns",
 ];
 
 const SubmitModal: React.FC<SubmitModalProps> = ({ isOpen, setIsOpen }) => {
