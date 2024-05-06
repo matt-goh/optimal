@@ -143,7 +143,7 @@ export const linksData = [
             <path d="M21 14h-7.5" />
           </svg>
         ),
-        label: "C Sharp",
+        label: "C#",
         link: "/csharp",
       },
       {
@@ -293,31 +293,6 @@ export const linksData = [
         link: "/typescript",
       },
       {
-        icon: (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="icon icon-tabler icons-tabler-outline icon-tabler-brand-php"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M12 12m-10 0a10 9 0 1 0 20 0a10 9 0 1 0 -20 0" />
-            <path d="M5.5 15l.395 -1.974l.605 -3.026h1.32a1 1 0 0 1 .986 1.164l-.167 1a1 1 0 0 1 -.986 .836h-1.653" />
-            <path d="M15.5 15l.395 -1.974l.605 -3.026h1.32a1 1 0 0 1 .986 1.164l-.167 1a1 1 0 0 1 -.986 .836h-1.653" />
-            <path d="M12 7.5l-1 5.5" />
-            <path d="M11.6 10h2.4l-.5 3" />
-          </svg>
-        ),
-        label: "php",
-        link: "/php",
-      },
-      {
         subLabel: true,
         icon: "",
         label: "JS Frameworks",
@@ -326,7 +301,7 @@ export const linksData = [
       {
         icon: (
           <svg
-            xmlns="http://www.w3.org/2000/svg"
+          xmlns="http://www.w3.org/2000/svg"
             width="22"
             height="22"
             viewBox="0 0 24 24"
@@ -363,7 +338,7 @@ export const linksData = [
             strokeLinecap="round"
             strokeLinejoin="round"
             className="icon icon-tabler icons-tabler-outline icon-tabler-brand-angular"
-          >
+            >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M5.428 17.245l6.076 3.471a1 1 0 0 0 .992 0l6.076 -3.471a1 1 0 0 0 .495 -.734l1.323 -9.704a1 1 0 0 0 -.658 -1.078l-7.4 -2.612a1 1 0 0 0 -.665 0l-7.399 2.613a1 1 0 0 0 -.658 1.078l1.323 9.704a1 1 0 0 0 .495 .734z" />
             <path d="M9 15l3 -8l3 8" />
@@ -376,16 +351,16 @@ export const linksData = [
       {
         icon: (
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="icon icon-tabler icons-tabler-outline icon-tabler-brand-vue"
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="icon icon-tabler icons-tabler-outline icon-tabler-brand-vue"
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M16.5 4l-4.5 8l-4.5 -8" />
@@ -398,16 +373,16 @@ export const linksData = [
       {
         icon: (
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="icon icon-tabler icons-tabler-outline icon-tabler-brand-svelte"
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="icon icon-tabler icons-tabler-outline icon-tabler-brand-svelte"
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M15 8l-5 3l.821 -.495c1.86 -1.15 4.412 -.49 5.574 1.352a3.91 3.91 0 0 1 -1.264 5.42l-5.053 3.126c-1.86 1.151 -4.312 .591 -5.474 -1.251a3.91 3.91 0 0 1 1.263 -5.42l.26 -.16" />
@@ -440,28 +415,6 @@ export const linksData = [
         link: "/next.js",
       },
       {
-        icon: (
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="icon icon-tabler icons-tabler-outline icon-tabler-square-letter-j"
-          >
-            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
-            <path d="M10 8h4v6a2 2 0 1 1 -4 0" />
-          </svg>
-        ),
-        label: "jQuery",
-        link: "/jquery",
-      },
-      {
         subLabel: true,
         icon: "",
         label: "Backend",
@@ -470,16 +423,16 @@ export const linksData = [
       {
         icon: (
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="icon icon-tabler icons-tabler-outline icon-tabler-brand-nodejs"
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="icon icon-tabler icons-tabler-outline icon-tabler-brand-nodejs"
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M9 9v8.044a2 2 0 0 1 -2.996 1.734l-1.568 -.9a3 3 0 0 1 -1.436 -2.561v-6.635a3 3 0 0 1 1.436 -2.56l6 -3.667a3 3 0 0 1 3.128 0l6 3.667a3 3 0 0 1 1.436 2.561v6.634a3 3 0 0 1 -1.436 2.56l-6 3.667a3 3 0 0 1 -3.128 0" />
@@ -492,16 +445,16 @@ export const linksData = [
       {
         icon: (
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="icon icon-tabler icons-tabler-outline icon-tabler-explicit"
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
+          height="22"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="icon icon-tabler icons-tabler-outline icon-tabler-explicit"
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M4 4m0 1a1 1 0 0 1 1 -1h14a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-14a1 1 0 0 1 -1 -1z" />
@@ -515,8 +468,8 @@ export const linksData = [
       {
         icon: (
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
             height="22"
             viewBox="0 0 24 24"
             fill="none"
@@ -525,7 +478,7 @@ export const linksData = [
             strokeLinecap="round"
             strokeLinejoin="round"
             className="icon icon-tabler icons-tabler-outline icon-tabler-brand-django"
-          >
+            >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
             <path d="M3 3m0 3a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v12a3 3 0 0 1 -3 3h-12a3 3 0 0 1 -3 -3z" />
             <path d="M12 7v8.5l-2.015 .201a2.715 2.715 0 1 1 0 -5.402l2.015 .201" />
@@ -536,6 +489,31 @@ export const linksData = [
         label: "Django",
         link: "/django",
       },
+      {
+        icon: (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="22"
+            height="22"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="icon icon-tabler icons-tabler-outline icon-tabler-brand-php"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M12 12m-10 0a10 9 0 1 0 20 0a10 9 0 1 0 -20 0" />
+            <path d="M5.5 15l.395 -1.974l.605 -3.026h1.32a1 1 0 0 1 .986 1.164l-.167 1a1 1 0 0 1 -.986 .836h-1.653" />
+            <path d="M15.5 15l.395 -1.974l.605 -3.026h1.32a1 1 0 0 1 .986 1.164l-.167 1a1 1 0 0 1 -.986 .836h-1.653" />
+            <path d="M12 7.5l-1 5.5" />
+            <path d="M11.6 10h2.4l-.5 3" />
+          </svg>
+        ),
+        label: "php",
+        link: "/php",
+      },
     ],
   },
   {
@@ -544,8 +522,8 @@ export const linksData = [
       {
         icon: (
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="22"
+          xmlns="http://www.w3.org/2000/svg"
+          width="22"
             height="22"
             viewBox="0 0 24 24"
             fill="none"

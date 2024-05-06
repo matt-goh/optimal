@@ -35,7 +35,6 @@ const tags: TagType[] = [
   "Angular",
   "Vue.js",
   "Next.js",
-  "jQuery",
   "Node.js",
   "Express.js",
   "Django",

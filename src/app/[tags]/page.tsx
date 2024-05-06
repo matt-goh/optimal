@@ -25,6 +25,12 @@ function TagPage() {
       postgresql: "PostgreSQL",
       mongodb: "MongoDB",
       cpp: "C++",
+      reactnative: "React Native",
+      googlecloud: "Google Cloud",
+      "git&github": "Git & GitHub",
+      tensorflow: "TensorFlow",
+      pytorch: "PyTorch",
+      designpatterns: "Design patterns",
     };
 
     // If a special case exists, return it
