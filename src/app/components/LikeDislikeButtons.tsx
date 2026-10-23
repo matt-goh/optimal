@@ -2,6 +2,7 @@ import { LikeDislikeButtonsProps, LikeState } from "../types/types";
 import React, { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useUser } from "../context/UserContext";
+import { IconThumbDown, IconThumbDownFilled } from "@tabler/icons-react";
 
 const LikeDislikeButtons: React.FC<LikeDislikeButtonsProps> = ({
   resourceId,
@@ -168,27 +169,21 @@ const LikeDislikeButtons: React.FC<LikeDislikeButtonsProps> = ({
         {likes == 0 ? "Like" : likes}
       </span>
       <button
-        className="flex items-center hover:text-amber-500 active:text-amber-500 dark:text-zinc-300/75 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-zinc-600/50 dark:active:bg-zinc-600 rounded-full p-2"
+        className={`flex items-center hover:text-amber-500 active:text-amber-500 hover:bg-gray-200 active:bg-gray-300 dark:hover:bg-zinc-600/50 dark:active:bg-zinc-600 rounded-full p-2 ${
+          likeState === "disliked"
+            ? "text-amber-500 dark:text-amber-400"
+            : "text-gray-500 dark:text-zinc-300/75"
+        }`}
         onClick={() => handleLikeDislike("disliked")}
+        aria-label="Dislike"
+        aria-pressed={likeState === "disliked"}
+        title="Dislike"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill={likeState === "disliked" ? "#F59E0B" : "none"}
-          stroke="#F59E0B"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={`icon icon-tabler icons-tabler-outline icon-tabler-hammer ${
-            likeState === "disliked" ? "text-zinc-600/50" : "stroke-current"
-          }`}
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M11.414 10l-7.383 7.418a2.091 2.091 0 0 0 0 2.967a2.11 2.11 0 0 0 2.976 0l7.407 -7.385" />
-          <path d="M18.121 15.293l2.586 -2.586a1 1 0 0 0 0 -1.414l-7.586 -7.586a1 1 0 0 0 -1.414 0l-2.586 2.586a1 1 0 0 0 0 1.414l7.586 7.586a1 1 0 0 0 1.414 0z" />
-        </svg>
+        {likeState === "disliked" ? (
+          <IconThumbDownFilled size={24} aria-hidden="true" />
+        ) : (
+          <IconThumbDown size={24} stroke={1.5} aria-hidden="true" />
+        )}
       </button>
     </div>
   );
