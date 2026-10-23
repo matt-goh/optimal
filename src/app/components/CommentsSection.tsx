@@ -38,7 +38,7 @@ const CommentsSection: React.FC<CommentSectionProps> = ({
           profiles: comment.profiles ? comment.profiles : {
                 username: "Anonymous",
                 profile_pic_url:
-                  "https://icwuwhijvlesjzisktiy.supabase.co/storage/v1/object/public/profile_images/default/default_o_cat.jpg",
+                  `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile_image/default/default_o_cat.jpg`,
               },
           timeAgo: formatDistanceToNow(new Date(comment.created_at), {
             addSuffix: true,

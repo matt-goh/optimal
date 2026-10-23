@@ -11,7 +11,7 @@ const ProfileDropdown = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const { user, setUser } = useUser();
   const [profilePicUrl, setProfilePicUrl] = useState(
-    "https://icwuwhijvlesjzisktiy.supabase.co/storage/v1/object/public/profile_images/default/default_o_cat.jpg"
+    `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/profile_image/default/default_o_cat.jpg`
   );
 
   useEffect(() => {
